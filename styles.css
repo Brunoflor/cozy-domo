@@ -141,20 +141,36 @@ h1 {
   height: auto;
 }
 
+html:not(.intro-seen) .logo {
+  visibility: hidden;
+}
+
 .intro {
   position: fixed;
   inset: 0;
   z-index: 80;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
-  background: var(--bg);
-  overflow: hidden;
+  gap: 1.15rem;
+  padding: 1.25rem;
+  background-color: var(--bg);
+  transition: background-color 0.8s ease-in-out;
 }
 
 html.intro-seen .intro {
   display: none;
+}
+
+.intro-logo {
+  position: relative;
+  z-index: 1;
+  width: min(90vw, 34rem);
+  height: auto;
+  opacity: 0;
+  transform: translateY(0.75rem);
+  transform-origin: center center;
 }
 
 .intro-title {
@@ -162,25 +178,25 @@ html.intro-seen .intro {
   max-width: 18rem;
   color: var(--orange);
   font-family: var(--display);
-  font-size: clamp(2.15rem, 11vw, 4.6rem);
+  font-size: clamp(2.05rem, 10vw, 4.25rem);
   font-weight: 700;
   letter-spacing: 0.01em;
   line-height: 0.96;
   text-align: center;
   text-wrap: balance;
+  opacity: 0;
+  transform: translateY(0.75rem);
 }
 
 .intro-title.is-chars {
   max-width: none;
-  font-size: clamp(1.45rem, 7.4vw, 3.5rem);
+  font-size: clamp(1.4rem, 7vw, 3.3rem);
   letter-spacing: 0.03em;
   white-space: nowrap;
 }
 
 .intro-piece {
   display: inline-block;
-  opacity: 0;
-  transform: translateY(0.65rem);
 }
 
 .intro-piece + .intro-piece {
@@ -191,12 +207,21 @@ html.intro-seen .intro {
   margin-inline-start: 0.03em;
 }
 
-.intro.is-play .intro-piece {
-  animation: intro-rise 0.72s cubic-bezier(0.16, 0.84, 0.32, 1) forwards;
+.intro.is-play .intro-logo,
+.intro.is-play .intro-title {
+  animation: intro-rise 0.8s cubic-bezier(0.16, 0.84, 0.32, 1) forwards;
 }
 
-.intro.is-play {
-  animation: intro-fade 2.5s linear forwards;
+.intro.is-play .intro-title {
+  animation-delay: 0.12s;
+}
+
+.intro.is-fly {
+  background-color: transparent;
+}
+
+.intro.is-fly .intro-title {
+  animation: intro-text-out 0.4s ease forwards;
 }
 
 @keyframes intro-rise {
@@ -206,25 +231,13 @@ html.intro-seen .intro {
   }
 }
 
-@keyframes intro-fade {
-  0%,
-  70% {
+@keyframes intro-text-out {
+  from {
     opacity: 1;
   }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes intro-out {
   to {
     opacity: 0;
   }
-}
-
-.intro.is-out,
-.intro.is-out.is-play {
-  animation: intro-out 0.28s ease forwards;
 }
 
 .hint {

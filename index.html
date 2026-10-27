@@ -63,9 +63,10 @@
   </head>
   <body>
     <div id="intro" class="intro" aria-hidden="true">
+      <img id="intro-logo" class="intro-logo" src="icons/logo.webp" alt="" width="977" height="638" decoding="async" draggable="false" />
       <p id="intro-title" class="intro-title"></p>
     </div>
-    <noscript><style>#intro{display:none}</style></noscript>
+    <noscript><style>#intro{display:none} html:not(.intro-seen) .logo{visibility:visible}</style></noscript>
     <div class="wrap">
       <a class="skip" id="skip" href="#sections">Skip to sections</a>
       <header class="site-header">
