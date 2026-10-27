@@ -668,7 +668,7 @@
       overlay.classList.add("is-fly");
       title.style.removeProperty("animation");
       title.style.removeProperty("opacity");
-      logo.style.transition = "transform 0.8s ease-in-out";
+      logo.style.transition = "transform 0.7s ease-in-out";
       logo.style.transform = flightTransform();
       logo.addEventListener("transitionend", function (event) {
         if (event.target !== logo || event.propertyName !== "transform") return;
@@ -685,15 +685,10 @@
     function begin() {
       if (!overlay.isConnected || overlay.classList.contains("is-play") || closed) return;
       overlay.classList.add("is-play");
-      flightTimer = window.setTimeout(startFlight, 2120);
-      safetyTimer = window.setTimeout(finish, 4200);
+      flightTimer = window.setTimeout(startFlight, 1000);
+      safetyTimer = window.setTimeout(finish, 2600);
     }
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(begin);
-      window.setTimeout(begin, 450);
-    } else {
-      begin();
-    }
+    begin();
   }
 
   function bind() {
