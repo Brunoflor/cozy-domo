@@ -7,6 +7,8 @@ A single, mobile-friendly page that gives guests everything they need during the
 ## How it works
 The page shows a three-column grid of icons. A short line above the grid says “Tap the icons”. Tapping an icon opens that topic. Topics that are not filled in yet have a small orange dot on the tile.
 
+The guide is in Italian, English, Spanish, French, German, Portuguese, Simplified Chinese, Japanese, and Arabic. The first visit follows the browser’s language list and otherwise uses English. The choice is remembered. Arabic is laid out right to left.
+
 Location and parking already have details. Every other topic stays on “Coming soon” until it is filled in.
 
 ## Why
@@ -15,10 +17,12 @@ Location and parking already have details. Every other topic stays on “Coming 
 - Easy to update when something changes
 
 ## Edit the content
-Guest-facing Italian and English text lives in [`content.js`](content.js). Change a string, save, and refresh.
+Guest-facing text lives in [`content.js`](content.js). Change a string, save, and refresh.
 
-- A **notes** topic (welcome, Wi-Fi, house rules, and the rest) stays on “Coming soon” until you add `paragraphs`, each `{ it, en }`.
-- A **places** topic (parking, bars, restaurants, shopping) stays on “Coming soon” until you add `items` in the same shape as the garages: `name`, `address`, `text` (`{ it, en }`), and `mapsUrl`.
+Each sentence is an object with one field per language: `it`, `en`, `es`, `fr`, `de`, `pt`, `zh`, `ja`, `ar`. If a language is missing, the page uses English.
+
+- A **notes** topic (welcome, Wi-Fi, house rules, and the rest) stays on “Coming soon” until you add `paragraphs`, each a language object.
+- A **places** topic (parking, bars, restaurants, shopping) stays on “Coming soon” until you add `items` in the same shape as the garages: `name`, `address`, `text` (a language object), and `mapsUrl`.
 
 Only add details you have checked — no guessed names, passwords, phone numbers, prices, or hours.
 
@@ -32,7 +36,7 @@ python3 -m http.server 8000
 Then open [http://localhost:8000](http://localhost:8000). You can also open `index.html` directly in a browser.
 
 ## Icons
-The sixteen section pictures are [Fluent Emoji](https://github.com/microsoft/fluentui-emoji) 3D by Microsoft (house, key, round pushpin, P button, antenna bars, clipboard, bus, couch and lamp, compass, information, cocktail glass, pizza, shopping bags, hospital, luggage, and telephone). They are © Microsoft Corporation and used under the MIT License. The license is in [`icons/LICENSE`](icons/LICENSE).
+The section icons are custom-made for Cozy Domo.
 
 ## Status
 🚧 In active development.

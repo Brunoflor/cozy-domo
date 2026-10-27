@@ -48,21 +48,60 @@
     external: svg('<path d="M14 5h5v5"/><path d="M19 5 10 14"/><path d="M16 13.5V19H5V8h5.5"/>'),
   };
 
+  var LANGS = [
+    { code: "it", name: "Italiano" },
+    { code: "en", name: "English" },
+    { code: "es", name: "Español" },
+    { code: "fr", name: "Français" },
+    { code: "de", name: "Deutsch" },
+    { code: "pt", name: "Português" },
+    { code: "zh", name: "中文" },
+    { code: "ja", name: "日本語" },
+    { code: "ar", name: "العربية" },
+  ];
+
+  function isLang(code) {
+    for (var i = 0; i < LANGS.length; i++) {
+      if (LANGS[i].code === code) return true;
+    }
+    return false;
+  }
+
+  function langName(code) {
+    for (var i = 0; i < LANGS.length; i++) {
+      if (LANGS[i].code === code) return LANGS[i].name;
+    }
+    return code;
+  }
+
+  function matchLang(tag) {
+    var value = String(tag || "").toLowerCase().replace(/_/g, "-");
+    if (value.indexOf("zh") === 0) return "zh";
+    var base = value.split("-")[0];
+    return isLang(base) ? base : "";
+  }
+
   function detectLang() {
     try {
       var saved = localStorage.getItem(STORAGE_KEY);
-      if (saved === "it" || saved === "en") return saved;
+      if (isLang(saved)) return saved;
     } catch (e) {
       /* private mode */
     }
-    var primary = (navigator.language || "en").toLowerCase();
-    return primary.indexOf("it") === 0 ? "it" : "en";
+    var list = navigator.languages && navigator.languages.length
+      ? navigator.languages
+      : [navigator.language || "en"];
+    for (var i = 0; i < list.length; i++) {
+      var hit = matchLang(list[i]);
+      if (hit) return hit;
+    }
+    return "en";
   }
 
   function text(value) {
     if (value == null) return "";
     if (typeof value === "string") return value;
-    return value[state.lang] || value.en || value.it || "";
+    return value[state.lang] || value.en || "";
   }
 
   function t(key) {
@@ -132,36 +171,115 @@
     return a;
   }
 
-  function updateLangSwitch(container) {
-    if (!container.querySelector("[data-set-lang]")) {
-      container.setAttribute("role", "group");
-      container.appendChild(langButton("it"));
-      var sep = document.createElement("span");
-      sep.className = "lang-sep";
-      sep.setAttribute("aria-hidden", "true");
-      sep.textContent = "|";
-      container.appendChild(sep);
-      container.appendChild(langButton("en"));
-    }
-    container.setAttribute("aria-label", t("languageLabel"));
-    var buttons = container.querySelectorAll("[data-set-lang]");
-    buttons.forEach(function (button) {
-      var on = button.getAttribute("data-set-lang") === state.lang;
-      button.setAttribute("aria-pressed", on ? "true" : "false");
+  function closeLangMenus(except) {
+    var menus = document.querySelectorAll(".lang-menu");
+    menus.forEach(function (menu) {
+      if (menu === except) return;
+      menu.hidden = true;
+      var toggle = menu.parentElement.querySelector(".lang-toggle");
+      if (toggle) toggle.setAttribute("aria-expanded", "false");
     });
   }
 
-  function langButton(code) {
-    var button = document.createElement("button");
-    button.type = "button";
-    button.lang = code;
-    button.dataset.setLang = code;
-    button.textContent = code.toUpperCase();
-    button.setAttribute("aria-pressed", state.lang === code ? "true" : "false");
-    button.addEventListener("click", function () {
-      setLang(code);
+  function updateLangSwitch(container) {
+    if (!container.querySelector(".lang-toggle")) {
+      buildLangSwitch(container);
+    }
+    var current = langName(state.lang);
+    var toggle = container.querySelector(".lang-toggle");
+    toggle.lang = state.lang;
+    toggle.setAttribute("aria-label", t("languageLabel") + ", " + current);
+    toggle.querySelector(".lang-code").textContent = state.lang.toUpperCase();
+    toggle.querySelector(".lang-current").textContent = current;
+    var options = container.querySelectorAll(".lang-option");
+    options.forEach(function (option) {
+      var on = option.getAttribute("data-set-lang") === state.lang;
+      option.setAttribute("aria-selected", on ? "true" : "false");
     });
-    return button;
+    container.querySelector(".lang-menu").setAttribute("aria-label", t("languageLabel"));
+  }
+
+  function buildLangSwitch(container) {
+    var menuId = container.id + "-menu";
+    var toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "lang-toggle";
+    toggle.setAttribute("aria-haspopup", "listbox");
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-controls", menuId);
+    var code = document.createElement("span");
+    code.className = "lang-code";
+    code.setAttribute("aria-hidden", "true");
+    var current = document.createElement("span");
+    current.className = "lang-current";
+    var caret = document.createElement("span");
+    caret.className = "lang-caret";
+    caret.setAttribute("aria-hidden", "true");
+    caret.innerHTML =
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
+    toggle.appendChild(code);
+    toggle.appendChild(current);
+    toggle.appendChild(caret);
+    toggle.addEventListener("click", function () {
+      var menu = container.querySelector(".lang-menu");
+      var open = menu.hidden;
+      closeLangMenus(open ? menu : null);
+      menu.hidden = !open;
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      if (open) {
+        var selected = menu.querySelector('[aria-selected="true"]') || menu.querySelector(".lang-option");
+        if (selected) selected.focus();
+      }
+    });
+    toggle.addEventListener("keydown", function (event) {
+      if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
+      event.preventDefault();
+      toggle.click();
+    });
+
+    var menu = document.createElement("ul");
+    menu.id = menuId;
+    menu.className = "lang-menu";
+    menu.setAttribute("role", "listbox");
+    menu.hidden = true;
+    LANGS.forEach(function (item) {
+      var li = document.createElement("li");
+      var option = document.createElement("button");
+      option.type = "button";
+      option.className = "lang-option";
+      option.setAttribute("role", "option");
+      option.lang = item.code;
+      option.dataset.setLang = item.code;
+      var mark = document.createElement("span");
+      mark.className = "lang-code";
+      mark.setAttribute("aria-hidden", "true");
+      mark.textContent = item.code.toUpperCase();
+      var name = document.createElement("span");
+      name.textContent = item.name;
+      option.appendChild(mark);
+      option.appendChild(name);
+      option.addEventListener("click", function () {
+        setLang(item.code);
+        closeLangMenus(null);
+        toggle.focus();
+      });
+      option.addEventListener("keydown", function (event) {
+        var keys = ["ArrowDown", "ArrowUp", "Home", "End"];
+        if (keys.indexOf(event.key) === -1) return;
+        event.preventDefault();
+        var all = Array.prototype.slice.call(menu.querySelectorAll(".lang-option"));
+        var index = all.indexOf(option);
+        if (event.key === "ArrowDown") index = (index + 1) % all.length;
+        if (event.key === "ArrowUp") index = (index - 1 + all.length) % all.length;
+        if (event.key === "Home") index = 0;
+        if (event.key === "End") index = all.length - 1;
+        all[index].focus();
+      });
+      li.appendChild(option);
+      menu.appendChild(li);
+    });
+    container.appendChild(toggle);
+    container.appendChild(menu);
   }
 
   function renderGrid() {
@@ -370,6 +488,7 @@
   function render(options) {
     options = options || {};
     document.documentElement.lang = state.lang;
+    document.documentElement.dir = state.lang === "ar" ? "rtl" : "ltr";
     document.documentElement.dataset.lang = state.lang;
     document.title = t("pageTitle");
     var meta = document.querySelector('meta[name="description"]');
@@ -384,12 +503,12 @@
     renderHomeAddress();
     renderSheet();
     if (options.announce) {
-      document.getElementById("live").textContent = t("languageNow");
+      document.getElementById("live").textContent = langName(state.lang);
     }
   }
 
   function setLang(lang) {
-    if (lang !== "it" && lang !== "en") return;
+    if (!isLang(lang)) return;
     var changed = lang !== state.lang;
     state.lang = lang;
     try {
@@ -441,9 +560,26 @@
       if (event.target === dialog) dialog.close();
     });
     dialog.addEventListener("close", onClose);
+    document.addEventListener("click", function (event) {
+      if (!event.target.closest(".lang")) closeLangMenus(null);
+    });
+    document.addEventListener(
+      "keydown",
+      function (event) {
+        if (event.key !== "Escape") return;
+        var open = document.querySelector(".lang-menu:not([hidden])");
+        if (!open) return;
+        event.preventDefault();
+        event.stopPropagation();
+        var toggle = open.parentElement.querySelector(".lang-toggle");
+        closeLangMenus(null);
+        if (toggle) toggle.focus();
+      },
+      true
+    );
   }
 
-  state.lang = document.documentElement.dataset.lang === "it" || document.documentElement.dataset.lang === "en"
+  state.lang = isLang(document.documentElement.dataset.lang)
     ? document.documentElement.dataset.lang
     : detectLang();
   bind();
