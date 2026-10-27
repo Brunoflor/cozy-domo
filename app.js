@@ -552,7 +552,10 @@
 
   function playIntro() {
     var overlay = document.getElementById("intro");
-    if (!overlay) return;
+    var logo = document.getElementById("intro-logo");
+    var title = document.getElementById("intro-title");
+    var headerLogo = document.querySelector(".logo");
+    if (!overlay || !logo || !title || !headerLogo) return;
     if (document.documentElement.classList.contains("intro-seen")) {
       overlay.remove();
       return;
@@ -571,8 +574,8 @@
     }
 
     var phrase = t("intro");
-    var title = document.getElementById("intro-title");
-    if (!phrase || !title) {
+    if (!phrase) {
+      document.documentElement.classList.add("intro-seen");
       overlay.remove();
       return;
     }
@@ -587,39 +590,103 @@
     title.classList.toggle("is-chars", chars);
     title.replaceChildren();
     var parts = chars ? Array.from(phrase) : phrase.split(/\s+/);
-    var step = parts.length > 8 ? 0.04 : 0.1;
-    parts.forEach(function (part, index) {
+    parts.forEach(function (part) {
       var piece = document.createElement("span");
       piece.className = "intro-piece";
       piece.textContent = part;
-      piece.style.animationDelay = index * step + "s";
       title.appendChild(piece);
     });
 
     var closed = false;
-    function closeIntro() {
+    var flying = false;
+    var first = null;
+    var flightTimer = 0;
+    var safetyTimer = 0;
+
+    function flightTransform() {
+      var last = headerLogo.getBoundingClientRect();
+      if (!first || last.width < 2) return "";
+      var scale = last.width / first.width;
+      var dx = last.left + last.width / 2 - (first.left + first.width / 2);
+      var dy = last.top + last.height / 2 - (first.top + first.height / 2);
+      return "translate(" + dx.toFixed(2) + "px, " + dy.toFixed(2) + "px) scale(" + scale.toFixed(4) + ")";
+    }
+
+    function onResize() {
+      if (!flying || closed) return;
+      var next = flightTransform();
+      if (next) logo.style.transform = next;
+    }
+
+    function finish() {
       if (closed) return;
       closed = true;
+      flying = false;
+      window.clearTimeout(flightTimer);
+      window.clearTimeout(safetyTimer);
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("scroll", onResize, true);
       document.documentElement.classList.add("intro-seen");
       if (overlay.isConnected) overlay.remove();
     }
 
-    overlay.addEventListener("animationend", function (event) {
-      if (event.target !== overlay) return;
-      closeIntro();
-    });
+    function pin(el, rect, lockHeight) {
+      el.style.position = "fixed";
+      el.style.left = rect.left + "px";
+      el.style.top = rect.top + "px";
+      el.style.width = rect.width + "px";
+      el.style.margin = "0";
+      el.style.maxWidth = "none";
+      el.style.transform = "none";
+      el.style.animation = "none";
+      if (lockHeight) el.style.height = rect.height + "px";
+    }
+
+    function startFlight() {
+      if (closed || flying) return;
+      logo.style.animation = "none";
+      logo.style.transform = "none";
+      logo.style.opacity = "1";
+      title.style.animation = "none";
+      title.style.opacity = "1";
+      var logoRect = logo.getBoundingClientRect();
+      var titleRect = title.getBoundingClientRect();
+      if (logoRect.width < 2 || headerLogo.getBoundingClientRect().width < 2) {
+        finish();
+        return;
+      }
+      pin(logo, logoRect, true);
+      pin(title, titleRect, false);
+      title.style.opacity = "1";
+      first = logoRect;
+      flying = true;
+      window.addEventListener("resize", onResize);
+      window.addEventListener("scroll", onResize, true);
+      logo.style.transformOrigin = "center center";
+      logo.style.transition = "none";
+      void logo.offsetWidth;
+      overlay.classList.add("is-fly");
+      title.style.removeProperty("animation");
+      title.style.removeProperty("opacity");
+      logo.style.transition = "transform 0.8s ease-in-out";
+      logo.style.transform = flightTransform();
+      logo.addEventListener("transitionend", function (event) {
+        if (event.target !== logo || event.propertyName !== "transform") return;
+        finish();
+      });
+    }
+
     overlay.addEventListener("pointerdown", function (event) {
-      if (overlay.classList.contains("is-out")) return;
       event.preventDefault();
       event.stopPropagation();
-      overlay.classList.add("is-out");
+      finish();
     });
 
-    window.setTimeout(closeIntro, 3200);
-
     function begin() {
-      if (!overlay.isConnected || overlay.classList.contains("is-play") || overlay.classList.contains("is-out")) return;
+      if (!overlay.isConnected || overlay.classList.contains("is-play") || closed) return;
       overlay.classList.add("is-play");
+      flightTimer = window.setTimeout(startFlight, 2120);
+      safetyTimer = window.setTimeout(finish, 4200);
     }
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(begin);
