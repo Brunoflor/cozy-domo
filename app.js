@@ -493,7 +493,6 @@
     document.title = t("pageTitle");
     var meta = document.querySelector('meta[name="description"]');
     if (meta) meta.setAttribute("content", t("metaDescription"));
-    document.getElementById("tagline").textContent = t("tagline");
     var hint = document.getElementById("hint");
     if (hint) hint.textContent = t("hint");
     document.getElementById("skip").textContent = t("skip");
@@ -551,6 +550,85 @@
     }, 0);
   }
 
+  function playIntro() {
+    var overlay = document.getElementById("intro");
+    if (!overlay) return;
+    if (document.documentElement.classList.contains("intro-seen")) {
+      overlay.remove();
+      return;
+    }
+
+    var reduce = false;
+    try {
+      reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    } catch (e) {
+      reduce = false;
+    }
+    if (reduce) {
+      document.documentElement.classList.add("intro-seen");
+      overlay.remove();
+      return;
+    }
+
+    var phrase = t("intro");
+    var title = document.getElementById("intro-title");
+    if (!phrase || !title) {
+      overlay.remove();
+      return;
+    }
+
+    try {
+      sessionStorage.setItem("cozy-domo-intro", "1");
+    } catch (e) {
+      /* private mode: the intro can play again next time */
+    }
+
+    var chars = state.lang === "zh" || state.lang === "ja" || phrase.indexOf(" ") === -1;
+    title.classList.toggle("is-chars", chars);
+    title.replaceChildren();
+    var parts = chars ? Array.from(phrase) : phrase.split(/\s+/);
+    var step = parts.length > 8 ? 0.04 : 0.1;
+    parts.forEach(function (part, index) {
+      var piece = document.createElement("span");
+      piece.className = "intro-piece";
+      piece.textContent = part;
+      piece.style.animationDelay = index * step + "s";
+      title.appendChild(piece);
+    });
+
+    var closed = false;
+    function closeIntro() {
+      if (closed) return;
+      closed = true;
+      document.documentElement.classList.add("intro-seen");
+      if (overlay.isConnected) overlay.remove();
+    }
+
+    overlay.addEventListener("animationend", function (event) {
+      if (event.target !== overlay) return;
+      closeIntro();
+    });
+    overlay.addEventListener("pointerdown", function (event) {
+      if (overlay.classList.contains("is-out")) return;
+      event.preventDefault();
+      event.stopPropagation();
+      overlay.classList.add("is-out");
+    });
+
+    window.setTimeout(closeIntro, 3200);
+
+    function begin() {
+      if (!overlay.isConnected || overlay.classList.contains("is-play") || overlay.classList.contains("is-out")) return;
+      overlay.classList.add("is-play");
+    }
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(begin);
+      window.setTimeout(begin, 450);
+    } else {
+      begin();
+    }
+  }
+
   function bind() {
     var dialog = document.getElementById("sheet");
     document.getElementById("sheet-back").addEventListener("click", function () {
@@ -583,5 +661,6 @@
     ? document.documentElement.dataset.lang
     : detectLang();
   bind();
+  playIntro();
   render();
 })();
