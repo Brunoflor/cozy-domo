@@ -20,6 +20,18 @@ The page shows a grid of **icons**, one for each topic. Tapping an icon opens it
 - Hosts spend less time answering the same questions
 - Easy to update when something changes
 
+## Edit the content
+Guest-facing Italian and English text lives in [`content.js`](content.js). Change a string, save, and refresh. Restaurants and Bars stay on “Coming soon” until you add real places to their lists, in the same shape as the parking garages. Only add details you have checked — no guessed names, phone numbers, prices, or hours.
+
+## Preview locally
+No build step. The site is the static files in this folder (`index.html`, `styles.css`, `app.js`, `content.js`). From here:
+
+```bash
+python3 -m http.server 8000
+```
+
+Then open [http://localhost:8000](http://localhost:8000). You can also open `index.html` directly in a browser.
+
 ## Status
 🚧 In active development.
 
