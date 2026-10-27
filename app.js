@@ -26,21 +26,21 @@
 
   var ICONS = {
     house: svg('<path d="M4 11.2 12 4.2l8 7"/><path d="M6.5 10.2V19.5h11V10.2"/><path d="M10 19.5v-4.2h4v4.2"/>'),
-    key: svg('<circle cx="8" cy="12" r="3.3"/><path d="M11.2 12H20.2"/><path d="M16.6 12v2.7"/><path d="M19.4 12v2.7"/>'),
-    pin: svg('<path d="M12 21.2s6.2-5.3 6.2-10.1a6.2 6.2 0 0 0-12.4 0c0 4.8 6.2 10.1 6.2 10.1z"/><circle cx="12" cy="11" r="2"/>'),
+    key: svg('<circle cx="7.6" cy="7.6" r="4.1"/><path d="M10.6 10.6 19.6 19.6"/><path d="M14.8 16.6 17.4 14"/><path d="M16.8 18.6 19.4 16"/>'),
+    pin: svg('<path d="M12 20.8s7.8-5.8 7.8-10a7.8 7.8 0 1 0-15.6 0c0 4.2 7.8 10 7.8 10z"/><circle cx="12" cy="10.8" r="2.5"/>'),
     parking: svg('<rect x="3.5" y="3.5" width="17" height="17" rx="3.5"/><path d="M9 16.8V7.4h4.1a2.9 2.9 0 0 1 0 5.8H9"/>'),
-    wifi: svg('<path d="M4.6 10.1a10 10 0 0 1 14.8 0"/><path d="M7.3 13a6.2 6.2 0 0 1 9.4 0"/><path d="M9.9 15.8a3 3 0 0 1 4.2 0"/><circle cx="12" cy="18.7" r="1" fill="currentColor" stroke="none"/>'),
-    rules: svg('<rect x="6" y="4.8" width="12" height="15" rx="2"/><path d="M9 4.8V3.8A1.2 1.2 0 0 1 10.2 2.6h3.6A1.2 1.2 0 0 1 15 3.8v1"/><path d="M9 10h6M9 13.4h6M9 16.8h3.6"/>'),
+    wifi: svg('<path d="M3.2 9.2a12.4 12.4 0 0 1 17.6 0"/><path d="M6.1 12.8a8.2 8.2 0 0 1 11.8 0"/><path d="M8.9 16.2a4.4 4.4 0 0 1 6.2 0"/><circle cx="12" cy="19.6" r="1.2" fill="currentColor" stroke="none"/>'),
+    rules: svg('<rect x="4.2" y="4.2" width="15.6" height="16.2" rx="2"/><path d="M8 4.2V3.2A1.2 1.2 0 0 1 9.2 2h5.6A1.2 1.2 0 0 1 16 3.2v1"/><path d="M7.6 9.4h8.8M7.6 12.8h8.8M7.6 16.2h5"/>'),
     bus: svg('<rect x="3.8" y="5.5" width="16.4" height="10.2" rx="2.4"/><path d="M3.8 11.2h16.4"/><path d="M7.2 8.2h2.2M10.9 8.2h2.2M14.6 8.2H16.8"/><circle cx="7.6" cy="18.4" r="1.35"/><circle cx="16.4" cy="18.4" r="1.35"/>'),
     sofa: svg('<path d="M6.2 11V8.8A2.2 2.2 0 0 1 8.4 6.6h7.2A2.2 2.2 0 0 1 17.8 8.8V11"/><path d="M4.2 11.2h15.6v4.4a1.8 1.8 0 0 1-1.8 1.8H6a1.8 1.8 0 0 1-1.8-1.8v-4.4z"/><path d="M7.2 17.4V20M16.8 17.4V20"/>'),
     compass: svg('<circle cx="12" cy="12" r="8"/><path d="m15.1 8.9-1.4 4.5-4.5 1.4 1.4-4.5 4.5-1.4z"/>'),
     info: svg('<circle cx="12" cy="12" r="8"/><path d="M12 11v5.2"/><path d="M12 8h.01"/>'),
-    cup: svg('<path d="M6.8 8h8.4v4.6a4.2 4.2 0 0 1-8.4 0V8z"/><path d="M15.2 9.3h1.5a2.3 2.3 0 0 1 0 4.6h-1.5"/><path d="M8.2 20.4h7.6"/>'),
-    plate: svg('<path d="M7 3.6v4.6"/><path d="M5.2 3.6v2.4c0 1.3.8 2.2 1.8 2.2s1.8-.9 1.8-2.2V3.6"/><path d="M7 10.8V20.4"/><path d="M16.2 3.6v16.8"/><path d="M16.2 3.6c1.5 1.7 2.2 3.3 2.2 5.1 0 1.5-.9 2.6-2.2 2.6"/>'),
-    bag: svg('<path d="M6.4 8.4h11.2l-.9 11.2H7.3L6.4 8.4z"/><path d="M9 8.4V7a3 3 0 0 1 6 0v1.4"/>'),
+    cup: svg('<path d="M4.2 5.4h10.4V12a5.2 5.2 0 0 1-10.4 0V5.4z"/><path d="M14.6 7.4h2.6a3.3 3.3 0 0 1 0 6.6h-2.6"/><path d="M6 20.6h8.8"/>'),
+    plate: svg('<path d="M6.2 3.2v6.2"/><path d="M3.8 3.2v3.4c0 1.7 1.1 2.8 2.4 2.8s2.4-1.1 2.4-2.8V3.2"/><path d="M6.2 12.4V20.8"/><path d="M16.6 3.2v17.6"/><path d="M16.6 3.2c2.1 2.2 3.2 4.2 3.2 6.5 0 1.9-1.3 3.1-3.2 3.1"/>'),
+    bag: svg('<path d="M4.2 7.6h15.6l-1.3 12.6H5.5L4.2 7.6z"/><path d="M8 7.6V6a4 4 0 0 1 8 0v1.6"/>'),
     cross: svg('<rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/>'),
-    door: svg('<path d="M4.8 4.6h7.4A1.3 1.3 0 0 1 13.5 5.9v12.2a1.3 1.3 0 0 1-1.3 1.3H4.8"/><path d="M9.6 12H19"/><path d="m15.8 9 3.2 3-3.2 3"/>'),
-    phone: svg('<rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 17.6h2"/>'),
+    door: svg('<path d="M3.4 3.6h9.4A1.5 1.5 0 0 1 14.3 5.1v13.8a1.5 1.5 0 0 1-1.5 1.5H3.4"/><path d="M9 12h11.2"/><path d="m16.6 8.4 3.8 3.6-3.8 3.6"/>'),
+    phone: svg('<path d="M6.2 3.4h4l1.6 3.8-2.4 1.4a13.2 13.2 0 0 0 6.2 6.2l1.4-2.4 3.8 1.6v4a2 2 0 0 1-2.2 2.1A16.2 16.2 0 0 1 4.1 6.2a2 2 0 0 1 2.1-2.8z"/>'),
     plane: svg('<path d="M2.6 12h6.2L12 4.2h1.7L12.2 12H20l1.6-2.4h1.2L21.2 12l1.6 2.4h-1.2L20 12h-7.8l1.5 7.8H12L8.8 12H2.6z"/>'),
     train: svg('<rect x="6" y="3.4" width="12" height="12.4" rx="3"/><path d="M6 10.6h12"/><path d="M9 6.4h2M13 6.4h2"/><circle cx="8.6" cy="18.6" r="1.35"/><circle cx="15.4" cy="18.6" r="1.35"/><path d="M8.6 15.8v1.4M15.4 15.8v1.4"/>'),
     ferry: svg('<path d="M3.8 14.8h16.4l-1.6 3.3H5.4L3.8 14.8z"/><path d="M7 14.8V9.2h6.2l2.2 3.2H18"/><path d="M13.2 9.2V5.6h4.2"/><path d="M3.4 20.4c1.2.7 2.2.7 3.4 0s2.2-.7 3.4 0 2.2.7 3.4 0 2.2-.7 3.4 0 2.2.7 3.4 0"/>'),
@@ -152,19 +152,23 @@
       var face = document.createElement("span");
       face.className = "tile-face";
       face.appendChild(icon(section.icon, "tile-glyph"));
+      if (isComingSoon(section)) {
+        var dot = document.createElement("span");
+        dot.className = "tile-dot";
+        dot.setAttribute("aria-hidden", "true");
+        face.appendChild(dot);
+      }
       button.appendChild(face);
       var label = document.createElement("span");
       label.className = "tile-label";
       label.textContent = text(section.title);
       button.appendChild(label);
-      var meta = document.createElement("span");
-      meta.className = "tile-meta";
       if (isComingSoon(section)) {
-        meta.textContent = t("comingSoon");
-      } else {
-        meta.setAttribute("aria-hidden", "true");
+        var soon = document.createElement("span");
+        soon.className = "visually-hidden";
+        soon.textContent = t("comingSoon");
+        button.appendChild(soon);
       }
-      button.appendChild(meta);
       button.addEventListener("click", function () {
         openSection(section.id);
       });
