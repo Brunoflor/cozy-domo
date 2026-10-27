@@ -299,12 +299,10 @@
       var face = document.createElement("span");
       face.className = "tile-face";
       face.appendChild(tileGlyph(section.icon));
-      if (isComingSoon(section)) {
-        var dot = document.createElement("span");
-        dot.className = "tile-dot";
-        dot.setAttribute("aria-hidden", "true");
-        face.appendChild(dot);
-      }
+      var dot = document.createElement("span");
+      dot.className = "tile-dot";
+      dot.setAttribute("aria-hidden", "true");
+      face.appendChild(dot);
       button.appendChild(face);
       var label = document.createElement("span");
       label.className = "tile-label";
@@ -485,6 +483,109 @@
     node.appendChild(line);
   }
 
+  var TRACKS = [
+    "music/lobby-time.mp3",
+    "music/night-in-venice.mp3",
+    "music/in-your-arms.mp3",
+  ];
+  var MUSIC_VOLUME = 0.35;
+  var LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/";
+
+  function renderMusicCredit() {
+    var node = document.getElementById("music-credit");
+    if (!node) return;
+    var parts = t("musicCredit").split("{license}");
+    node.replaceChildren();
+    node.appendChild(document.createTextNode(parts[0] || ""));
+    var link = document.createElement("a");
+    link.href = LICENSE_URL;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = "CC BY 4.0";
+    node.appendChild(link);
+    if (parts[1]) node.appendChild(document.createTextNode(parts[1]));
+  }
+
+  function bindPlayer() {
+    var button = document.getElementById("player");
+    var audio = document.getElementById("jazz");
+    if (!button || !audio) return;
+    var index = 0;
+    var wantPlay = false;
+    var primed = false;
+    var fadeToken = 0;
+
+    function setPlaying(on) {
+      button.setAttribute("aria-pressed", on ? "true" : "false");
+      button.classList.toggle("is-playing", on);
+    }
+
+    function fadeTo(target, done) {
+      var token = ++fadeToken;
+      var from = audio.volume;
+      var start = performance.now();
+      function step(now) {
+        if (token !== fadeToken) return;
+        var amount = Math.min(1, (now - start) / 1000);
+        audio.volume = from + (target - from) * amount;
+        if (amount < 1) {
+          window.requestAnimationFrame(step);
+        } else if (done) {
+          done();
+        }
+      }
+      window.requestAnimationFrame(step);
+    }
+
+    function cue(next) {
+      index = next;
+      audio.src = TRACKS[index];
+    }
+
+    audio.addEventListener("ended", function () {
+      if (!wantPlay) return;
+      cue((index + 1) % TRACKS.length);
+      audio.volume = MUSIC_VOLUME;
+      var next = audio.play();
+      if (next && next.catch) {
+        next.catch(function () {
+          wantPlay = false;
+          setPlaying(false);
+        });
+      }
+    });
+
+    button.addEventListener("click", function () {
+      if (wantPlay) {
+        wantPlay = false;
+        setPlaying(false);
+        fadeTo(0, function () {
+          if (!wantPlay) audio.pause();
+        });
+        return;
+      }
+      wantPlay = true;
+      setPlaying(true);
+      if (!primed) {
+        primed = true;
+        cue(0);
+        audio.volume = 0;
+      }
+      var started = audio.play();
+      function rise() {
+        if (wantPlay) fadeTo(MUSIC_VOLUME);
+      }
+      if (started && started.then) {
+        started.then(rise).catch(function () {
+          wantPlay = false;
+          setPlaying(false);
+        });
+      } else {
+        rise();
+      }
+    });
+  }
+
   function render(options) {
     options = options || {};
     document.documentElement.lang = state.lang;
@@ -494,6 +595,9 @@
     var meta = document.querySelector('meta[name="description"]');
     if (meta) meta.setAttribute("content", t("metaDescription"));
     document.getElementById("skip").textContent = t("skip");
+    var player = document.getElementById("player");
+    if (player) player.setAttribute("aria-label", t("musicLabel"));
+    renderMusicCredit();
     updateLangSwitch(document.getElementById("lang-switch"));
     updateLangSwitch(document.getElementById("sheet-lang"));
     renderGrid();
@@ -715,6 +819,7 @@
       },
       true
     );
+    bindPlayer();
   }
 
   state.lang = isLang(document.documentElement.dataset.lang)
