@@ -47,16 +47,16 @@ window.COZY_CONTENT = {
       "ja": "ナポリの Cozy Domo ゲスト向けデジタルガイド。",
       "ar": "دليل رقمي لضيوف Cozy Domo في نابولي."
     },
-    "tagline": {
-      "it": "La guida per il tuo soggiorno",
-      "en": "A guide for your stay",
-      "es": "La guía para tu estancia",
-      "fr": "Le guide de votre séjour",
-      "de": "Der Guide für Ihren Aufenthalt",
-      "pt": "O guia para a sua estadia",
-      "zh": "入住指南",
-      "ja": "ご滞在のためのガイド",
-      "ar": "دليل إقامتك"
+    "intro": {
+      "it": "LIBRO DI BENVENUTO",
+      "en": "WELCOME BOOK",
+      "es": "LIBRO DE BIENVENIDA",
+      "fr": "LIVRE D'ACCUEIL",
+      "de": "WILLKOMMENSBUCH",
+      "pt": "LIVRO DE BOAS-VINDAS",
+      "zh": "欢迎手册",
+      "ja": "ウェルカムブック",
+      "ar": "كتاب الترحيب"
     },
     "hint": {
       "it": "Clicca sulle icone",

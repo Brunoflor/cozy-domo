@@ -51,10 +51,21 @@
         root.lang = lang;
         root.dir = lang === "ar" ? "rtl" : "ltr";
         root.dataset.lang = lang;
+        try {
+          var seen = sessionStorage.getItem("cozy-domo-intro") === "1";
+          var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (seen || reduceMotion) root.classList.add("intro-seen");
+        } catch (e) {
+          /* private mode */
+        }
       })();
     </script>
   </head>
   <body>
+    <div id="intro" class="intro" aria-hidden="true">
+      <p id="intro-title" class="intro-title"></p>
+    </div>
+    <noscript><style>#intro{display:none}</style></noscript>
     <div class="wrap">
       <a class="skip" id="skip" href="#sections">Skip to sections</a>
       <header class="site-header">
@@ -65,7 +76,6 @@
             <img class="logo" src="icons/logo.png" alt="Cozy Domo" width="977" height="638" />
           </picture>
         </h1>
-        <p id="tagline" class="tagline"></p>
       </header>
       <main>
         <noscript>
