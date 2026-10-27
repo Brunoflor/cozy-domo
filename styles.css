@@ -125,12 +125,19 @@ h1 {
 }
 
 .logo-lockup {
+  width: 100%;
   margin: 0.15rem 0 0;
+}
+
+.logo-lockup picture {
+  display: block;
+  width: min(18.75rem, 100%);
+  margin-inline: auto;
 }
 
 .logo {
   display: block;
-  width: 11.25rem;
+  width: 100%;
   height: auto;
 }
 
@@ -782,8 +789,8 @@ h1 {
     padding-top: 2.4rem;
   }
 
-  .logo {
-    width: 15rem;
+  .logo-lockup picture {
+    width: 22.5rem;
   }
 
   .tile-label {
