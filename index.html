@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Cozy Domo</title>
+    <meta
+      name="description"
+      content="Digital welcome book for guests of Cozy Domo in Naples."
+    />
+    <meta name="theme-color" content="#68666a" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@400;600;700;800&family=Noto+Sans+Arabic:wght@600;700;800&family=Noto+Sans+JP:wght@500;700&family=Noto+Sans+SC:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      (function () {
+        var codes = { it: 1, en: 1, es: 1, fr: 1, de: 1, pt: 1, zh: 1, ja: 1, ar: 1 };
+        function match(tag) {
+          var value = String(tag || "").toLowerCase();
+          if (value.indexOf("zh") === 0) return "zh";
+          var base = value.split("-")[0];
+          return codes[base] ? base : "";
+        }
+        var lang = "en";
+        try {
+          var saved = localStorage.getItem("cozy-domo-lang");
+          if (codes[saved]) {
+            lang = saved;
+          } else {
+            var list = navigator.languages && navigator.languages.length
+              ? navigator.languages
+              : [navigator.language || "en"];
+            for (var i = 0; i < list.length; i++) {
+              var hit = match(list[i]);
+              if (hit) {
+                lang = hit;
+                break;
+              }
+            }
+          }
+        } catch (e) {
+          lang = "en";
+        }
+        var root = document.documentElement;
+        root.lang = lang;
+        root.dir = lang === "ar" ? "rtl" : "ltr";
+        root.dataset.lang = lang;
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="wrap">
+      <a class="skip" id="skip" href="#sections">Skip to sections</a>
+      <header class="site-header">
+        <div class="header-top">
+          <div class="brand">
+            <span class="brand-mark" aria-hidden="true">Ø</span>
+            <h1>
+              <span class="wordmark" aria-hidden="true">COZY<br />DØMO</span>
+              <span class="visually-hidden">Cozy Domo</span>
+            </h1>
+          </div>
+          <div id="lang-switch" class="lang"></div>
+        </div>
+        <p id="tagline" class="tagline"></p>
+      </header>
+      <main>
+        <noscript>
+          <p class="noscript">
+            Attiva JavaScript per usare la guida. Enable JavaScript to use the guide.
+          </p>
+        </noscript>
+        <p id="hint" class="hint"></p>
+        <div id="sections"></div>
+        <p id="home-address" class="home-address"></p>
+      </main>
+    </div>
+
+    <dialog id="sheet" class="sheet" aria-labelledby="sheet-title">
+      <div class="sheet-panel">
+        <div class="sheet-bar">
+          <button type="button" class="back" id="sheet-back">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 5 8 12l7 7" />
+            </svg>
+            <span id="back-label">Back</span>
+          </button>
+          <div id="sheet-lang" class="lang"></div>
+          <h2 id="sheet-title" class="sheet-title"></h2>
+        </div>
+        <div id="sheet-body" class="sheet-body"></div>
+      </div>
+    </dialog>
+    <p id="live" class="visually-hidden" aria-live="polite"></p>
+
+    <script src="content.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
