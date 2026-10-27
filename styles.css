@@ -156,7 +156,7 @@ html:not(.intro-seen) .logo {
   gap: 1.15rem;
   padding: 1.25rem;
   background-color: var(--bg);
-  transition: background-color 0.8s ease-in-out;
+  transition: background-color 0.7s ease-in-out;
 }
 
 html.intro-seen .intro {
@@ -209,11 +209,11 @@ html.intro-seen .intro {
 
 .intro.is-play .intro-logo,
 .intro.is-play .intro-title {
-  animation: intro-rise 0.8s cubic-bezier(0.16, 0.84, 0.32, 1) forwards;
+  animation: intro-rise 0.5s cubic-bezier(0.16, 0.84, 0.32, 1) forwards;
 }
 
 .intro.is-play .intro-title {
-  animation-delay: 0.12s;
+  animation-delay: 0.08s;
 }
 
 .intro.is-fly {

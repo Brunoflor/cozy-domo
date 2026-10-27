@@ -11,6 +11,7 @@
     <meta name="theme-color" content="#68666a" />
     <meta name="color-scheme" content="light" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preload" as="image" href="icons/logo.webp" fetchpriority="high" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -63,7 +64,7 @@
   </head>
   <body>
     <div id="intro" class="intro" aria-hidden="true">
-      <img id="intro-logo" class="intro-logo" src="icons/logo.webp" alt="" width="977" height="638" decoding="async" draggable="false" />
+      <img id="intro-logo" class="intro-logo" src="icons/logo.webp" alt="" width="977" height="638" fetchpriority="high" draggable="false" />
       <p id="intro-title" class="intro-title"></p>
     </div>
     <noscript><style>#intro{display:none} html:not(.intro-seen) .logo{visibility:visible}</style></noscript>
