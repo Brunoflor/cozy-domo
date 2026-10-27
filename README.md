@@ -27,7 +27,7 @@ Each sentence is an object with one field per language: `it`, `en`, `es`, `fr`, 
 Only add details you have checked — no guessed names, passwords, phone numbers, prices, or hours.
 
 ## Preview locally
-No build step. The site is the static files in this folder (`index.html`, `styles.css`, `app.js`, `content.js`, and `icons/`). From here:
+No build step. The site is the static files in this folder (`index.html`, `styles.css`, `app.js`, `content.js`, and `icons/`). Whenever you change CSS or JavaScript, bump the `?v=` version in `index.html` (the stylesheet, the scripts, and `COZY_VERSION`). From here:
 
 ```bash
 python3 -m http.server 8000

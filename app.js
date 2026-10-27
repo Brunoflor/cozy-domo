@@ -142,10 +142,16 @@
     return span;
   }
 
+  function asset(path) {
+    var version = window.COZY_VERSION;
+    if (!version) return path;
+    return path + "?v=" + version;
+  }
+
   function tileGlyph(name) {
     var img = document.createElement("img");
     img.className = "tile-glyph";
-    img.src = TILE_IMAGES[name] || TILE_IMAGES.pin;
+    img.src = asset(TILE_IMAGES[name] || TILE_IMAGES.pin);
     img.alt = "";
     img.decoding = "async";
     img.draggable = false;
@@ -539,7 +545,7 @@
 
     function cue(next) {
       index = next;
-      audio.src = TRACKS[index];
+      audio.src = asset(TRACKS[index]);
     }
 
     audio.addEventListener("ended", function () {
