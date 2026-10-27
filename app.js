@@ -493,8 +493,6 @@
     document.title = t("pageTitle");
     var meta = document.querySelector('meta[name="description"]');
     if (meta) meta.setAttribute("content", t("metaDescription"));
-    var hint = document.getElementById("hint");
-    if (hint) hint.textContent = t("hint");
     document.getElementById("skip").textContent = t("skip");
     updateLangSwitch(document.getElementById("lang-switch"));
     updateLangSwitch(document.getElementById("sheet-lang"));

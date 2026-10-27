@@ -58,17 +58,6 @@ window.COZY_CONTENT = {
       "ja": "ウェルカムブック",
       "ar": "كتاب الترحيب"
     },
-    "hint": {
-      "it": "Clicca sulle icone",
-      "en": "Tap the icons",
-      "es": "Toca los iconos",
-      "fr": "Touchez les icônes",
-      "de": "Tippen Sie auf die Symbole",
-      "pt": "Toque nos ícones",
-      "zh": "点击图标",
-      "ja": "アイコンをタップ",
-      "ar": "اضغط على الأيقونات"
-    },
     "languageLabel": {
       "it": "Lingua",
       "en": "Language",

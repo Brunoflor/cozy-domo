@@ -240,13 +240,6 @@ html.intro-seen .intro {
   }
 }
 
-.hint {
-  margin: 0 0 0.75rem;
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: var(--label);
-}
-
 .lang {
   position: relative;
   flex: none;
@@ -899,10 +892,6 @@ html.intro-seen .intro {
     inset-inline-end: 9%;
     width: 0.7rem;
     height: 0.7rem;
-  }
-
-  .hint {
-    font-size: 1.05rem;
   }
 }
 
