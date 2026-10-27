@@ -58,6 +58,28 @@ window.COZY_CONTENT = {
       "ja": "ウェルカムブック",
       "ar": "كتاب الترحيب"
     },
+    "musicLabel": {
+      "it": "Musica jazz: attiva/disattiva",
+      "en": "Jazz music: on/off",
+      "es": "Música jazz: activar/desactivar",
+      "fr": "Musique jazz : activer/désactiver",
+      "de": "Jazzmusik: ein/aus",
+      "pt": "Música jazz: ligar/desligar",
+      "zh": "爵士乐：开/关",
+      "ja": "ジャズ：オン／オフ",
+      "ar": "موسيقى الجاز: تشغيل/إيقاف"
+    },
+    "musicCredit": {
+      "it": "Musica: \"Lobby Time\", \"Night in Venice\", \"In Your Arms\" di Kevin MacLeod (incompetech.com), licenza {license}, tracce accorciate e ricodificate.",
+      "en": "Music: \"Lobby Time\", \"Night in Venice\", \"In Your Arms\" by Kevin MacLeod (incompetech.com), licence {license}, tracks shortened and re-encoded.",
+      "es": "Música: \"Lobby Time\", \"Night in Venice\", \"In Your Arms\" de Kevin MacLeod (incompetech.com), licencia {license}, pistas acortadas y recodificadas.",
+      "fr": "Musique : \"Lobby Time\", \"Night in Venice\", \"In Your Arms\" de Kevin MacLeod (incompetech.com), licence {license}, pistes raccourcies et réencodées.",
+      "de": "Musik: \"Lobby Time\", \"Night in Venice\", \"In Your Arms\" von Kevin MacLeod (incompetech.com), Lizenz {license}, Titel gekürzt und neu kodiert.",
+      "pt": "Música: \"Lobby Time\", \"Night in Venice\", \"In Your Arms\" de Kevin MacLeod (incompetech.com), licença {license}, faixas encurtadas e recodificadas.",
+      "zh": "音乐：\"Lobby Time\"、\"Night in Venice\"、\"In Your Arms\"，Kevin MacLeod (incompetech.com)，许可 {license}，曲目已缩短并重新编码。",
+      "ja": "音楽：「Lobby Time」「Night in Venice」「In Your Arms」Kevin MacLeod (incompetech.com)、ライセンス {license}、短縮して再エンコードした音源。",
+      "ar": "موسيقى: \"Lobby Time\" و\"Night in Venice\" و\"In Your Arms\" لـ Kevin MacLeod (incompetech.com)، رخصة {license}، مقاطع مختصرة وأعيد ترميزها."
+    },
     "languageLabel": {
       "it": "Lingua",
       "en": "Language",

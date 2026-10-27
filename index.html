@@ -67,11 +67,17 @@
       <img id="intro-logo" class="intro-logo" src="icons/logo.webp" alt="" width="977" height="638" fetchpriority="high" draggable="false" />
       <p id="intro-title" class="intro-title"></p>
     </div>
-    <noscript><style>#intro{display:none} html:not(.intro-seen) .logo{visibility:visible}</style></noscript>
+    <noscript><style>#intro{display:none} html:not(.intro-seen) .logo, html:not(.intro-seen) .player{visibility:visible}</style></noscript>
     <div class="wrap">
       <a class="skip" id="skip" href="#sections">Skip to sections</a>
       <header class="site-header">
-        <div id="lang-switch" class="lang"></div>
+        <div class="header-bar">
+          <button type="button" id="player" class="player" aria-pressed="false">
+            <img class="player-disc" src="icons/turntable.webp" alt="" width="384" height="384" draggable="false" />
+            <span class="player-on" aria-hidden="true"></span>
+          </button>
+          <div id="lang-switch" class="lang"></div>
+        </div>
         <h1 class="logo-lockup">
           <picture>
             <source srcset="icons/logo.webp" type="image/webp" />
@@ -87,7 +93,9 @@
         </noscript>
         <div id="sections"></div>
         <p id="home-address" class="home-address"></p>
+        <p id="music-credit" class="music-credit"></p>
       </main>
+      <audio id="jazz" preload="none"></audio>
     </div>
 
     <dialog id="sheet" class="sheet" aria-labelledby="sheet-title">
