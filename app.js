@@ -76,12 +76,41 @@
     return true;
   }
 
+  var TILE_IMAGES = {
+    house: "icons/house.webp",
+    key: "icons/key.webp",
+    pin: "icons/pin.webp",
+    parking: "icons/parking.webp",
+    wifi: "icons/wifi.webp",
+    rules: "icons/rules.webp",
+    bus: "icons/bus.webp",
+    sofa: "icons/sofa.webp",
+    compass: "icons/compass.webp",
+    info: "icons/info.webp",
+    cup: "icons/cup.webp",
+    plate: "icons/plate.webp",
+    bag: "icons/bag.webp",
+    cross: "icons/cross.webp",
+    door: "icons/door.webp",
+    phone: "icons/phone.webp",
+  };
+
   function icon(name, className) {
     var span = document.createElement("span");
     span.className = className || "icon";
     span.setAttribute("aria-hidden", "true");
     span.innerHTML = ICONS[name] || ICONS.pin;
     return span;
+  }
+
+  function tileGlyph(name) {
+    var img = document.createElement("img");
+    img.className = "tile-glyph";
+    img.src = TILE_IMAGES[name] || TILE_IMAGES.pin;
+    img.alt = "";
+    img.decoding = "async";
+    img.draggable = false;
+    return img;
   }
 
   function mapsLink(url, label, extra) {
@@ -151,7 +180,7 @@
       button.setAttribute("aria-expanded", state.openId === section.id ? "true" : "false");
       var face = document.createElement("span");
       face.className = "tile-face";
-      face.appendChild(icon(section.icon, "tile-glyph"));
+      face.appendChild(tileGlyph(section.icon));
       if (isComingSoon(section)) {
         var dot = document.createElement("span");
         dot.className = "tile-dot";

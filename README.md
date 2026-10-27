@@ -5,7 +5,7 @@
 A single, mobile-friendly page that gives guests everything they need during their stay. No paper binders, no repeated questions on chat: just tap an icon and find the answer.
 
 ## How it works
-The page shows a three-column grid of icons. A short line above the grid says “Tap the icons”. Tapping an icon opens that topic.
+The page shows a three-column grid of icons. A short line above the grid says “Tap the icons”. Tapping an icon opens that topic. Topics that are not filled in yet have a small orange dot on the tile.
 
 Location and parking already have details. Every other topic stays on “Coming soon” until it is filled in.
 
@@ -23,13 +23,16 @@ Guest-facing Italian and English text lives in [`content.js`](content.js). Chang
 Only add details you have checked — no guessed names, passwords, phone numbers, prices, or hours.
 
 ## Preview locally
-No build step. The site is the static files in this folder (`index.html`, `styles.css`, `app.js`, `content.js`). From here:
+No build step. The site is the static files in this folder (`index.html`, `styles.css`, `app.js`, `content.js`, and `icons/`). From here:
 
 ```bash
 python3 -m http.server 8000
 ```
 
 Then open [http://localhost:8000](http://localhost:8000). You can also open `index.html` directly in a browser.
+
+## Icons
+The sixteen section pictures are [Fluent Emoji](https://github.com/microsoft/fluentui-emoji) 3D by Microsoft (house, key, round pushpin, P button, antenna bars, clipboard, bus, couch and lamp, compass, information, cocktail glass, pizza, shopping bags, hospital, luggage, and telephone). They are © Microsoft Corporation and used under the MIT License. The license is in [`icons/LICENSE`](icons/LICENSE).
 
 ## Status
 🚧 In active development.

@@ -237,12 +237,12 @@ h1 {
 }
 
 .tile-glyph {
-  width: 72%;
-  height: 72%;
+  width: 60%;
+  height: auto;
+  aspect-ratio: 1;
   flex: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  object-fit: contain;
+  pointer-events: none;
 }
 
 .tile-dot {
@@ -256,7 +256,6 @@ h1 {
   box-shadow: 0 0 0 2px var(--tile);
 }
 
-.tile-glyph svg,
 .route-icon svg,
 .soon-icon svg,
 .notice-icon svg,
@@ -264,11 +263,6 @@ h1 {
 .btn-icon svg,
 .route-chevron svg {
   display: block;
-}
-
-.tile-glyph svg {
-  width: 100%;
-  height: 100%;
 }
 
 .tile-label {
