@@ -16,24 +16,36 @@
     triggerId: null,
   };
 
+  function svg(paths) {
+    return (
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">' +
+      paths +
+      "</svg>"
+    );
+  }
+
   var ICONS = {
-    pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></svg>',
-    parking:
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M9 17V7h4.2a3.15 3.15 0 0 1 0 6.3H9"/></svg>',
-    restaurant:
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h16"/><path d="M5.2 10c.4 4.6 3 7.2 6.8 7.2s6.4-2.6 6.8-7.2"/><path d="M12 17.2V20"/><path d="M8.5 21h7"/></svg>',
-    cup: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h10v5a5 5 0 0 1-10 0V8z"/><path d="M16 9h1.6a2.6 2.6 0 0 1 0 5.2H16"/><path d="M8 21h8"/><path d="M9 4.2c.3 1-.7 1.5-.7 2.5"/><path d="M12.6 3.2c.3 1-.7 1.5-.7 2.5"/></svg>',
-    plane:
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 11.2 21 4.5l-6.8 15.2-2.2-6.4L3.5 11.2z"/><path d="m12 13.3 9-8.8"/></svg>',
-    train:
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="13" rx="3.5"/><path d="M5 11h14"/><path d="M8 6.2h2.4v2.5H8zM13.6 6.2H16v2.5h-2.4z"/><circle cx="8.2" cy="19" r="1.3"/><circle cx="15.8" cy="19" r="1.3"/><path d="M9.4 19h5.2"/></svg>',
-    ferry:
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15h18l-1.7 3.2H4.7L3 15z"/><path d="M6.5 15V9H12l2 3h5.2"/><path d="M12 9V5h5"/><path d="M3.5 20.2c1.1.7 2 .7 3.1 0s2-.7 3.1 0 2 .7 3.1 0 2-.7 3.1 0 2 .7 3.1 0 2-.7 3.1 0"/></svg>',
-    chevron:
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>',
-    external:
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5h5v5"/><path d="M19 5 10 14"/><path d="M16 13.5V19H5V8h5.5"/></svg>',
-    info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><path d="M12 8h.01"/></svg>',
+    house: svg('<path d="M4 11.2 12 4.2l8 7"/><path d="M6.5 10.2V19.5h11V10.2"/><path d="M10 19.5v-4.2h4v4.2"/>'),
+    key: svg('<circle cx="8" cy="12" r="3.3"/><path d="M11.2 12H20.2"/><path d="M16.6 12v2.7"/><path d="M19.4 12v2.7"/>'),
+    pin: svg('<path d="M12 21.2s6.2-5.3 6.2-10.1a6.2 6.2 0 0 0-12.4 0c0 4.8 6.2 10.1 6.2 10.1z"/><circle cx="12" cy="11" r="2"/>'),
+    parking: svg('<rect x="3.5" y="3.5" width="17" height="17" rx="3.5"/><path d="M9 16.8V7.4h4.1a2.9 2.9 0 0 1 0 5.8H9"/>'),
+    wifi: svg('<path d="M4.6 10.1a10 10 0 0 1 14.8 0"/><path d="M7.3 13a6.2 6.2 0 0 1 9.4 0"/><path d="M9.9 15.8a3 3 0 0 1 4.2 0"/><circle cx="12" cy="18.7" r="1" fill="currentColor" stroke="none"/>'),
+    rules: svg('<rect x="6" y="4.8" width="12" height="15" rx="2"/><path d="M9 4.8V3.8A1.2 1.2 0 0 1 10.2 2.6h3.6A1.2 1.2 0 0 1 15 3.8v1"/><path d="M9 10h6M9 13.4h6M9 16.8h3.6"/>'),
+    bus: svg('<rect x="3.8" y="5.5" width="16.4" height="10.2" rx="2.4"/><path d="M3.8 11.2h16.4"/><path d="M7.2 8.2h2.2M10.9 8.2h2.2M14.6 8.2H16.8"/><circle cx="7.6" cy="18.4" r="1.35"/><circle cx="16.4" cy="18.4" r="1.35"/>'),
+    sofa: svg('<path d="M6.2 11V8.8A2.2 2.2 0 0 1 8.4 6.6h7.2A2.2 2.2 0 0 1 17.8 8.8V11"/><path d="M4.2 11.2h15.6v4.4a1.8 1.8 0 0 1-1.8 1.8H6a1.8 1.8 0 0 1-1.8-1.8v-4.4z"/><path d="M7.2 17.4V20M16.8 17.4V20"/>'),
+    compass: svg('<circle cx="12" cy="12" r="8"/><path d="m15.1 8.9-1.4 4.5-4.5 1.4 1.4-4.5 4.5-1.4z"/>'),
+    info: svg('<circle cx="12" cy="12" r="8"/><path d="M12 11v5.2"/><path d="M12 8h.01"/>'),
+    cup: svg('<path d="M6.8 8h8.4v4.6a4.2 4.2 0 0 1-8.4 0V8z"/><path d="M15.2 9.3h1.5a2.3 2.3 0 0 1 0 4.6h-1.5"/><path d="M8.2 20.4h7.6"/>'),
+    plate: svg('<path d="M7 3.6v4.6"/><path d="M5.2 3.6v2.4c0 1.3.8 2.2 1.8 2.2s1.8-.9 1.8-2.2V3.6"/><path d="M7 10.8V20.4"/><path d="M16.2 3.6v16.8"/><path d="M16.2 3.6c1.5 1.7 2.2 3.3 2.2 5.1 0 1.5-.9 2.6-2.2 2.6"/>'),
+    bag: svg('<path d="M6.4 8.4h11.2l-.9 11.2H7.3L6.4 8.4z"/><path d="M9 8.4V7a3 3 0 0 1 6 0v1.4"/>'),
+    cross: svg('<rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/>'),
+    door: svg('<path d="M4.8 4.6h7.4A1.3 1.3 0 0 1 13.5 5.9v12.2a1.3 1.3 0 0 1-1.3 1.3H4.8"/><path d="M9.6 12H19"/><path d="m15.8 9 3.2 3-3.2 3"/>'),
+    phone: svg('<rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 17.6h2"/>'),
+    plane: svg('<path d="M2.6 12h6.2L12 4.2h1.7L12.2 12H20l1.6-2.4h1.2L21.2 12l1.6 2.4h-1.2L20 12h-7.8l1.5 7.8H12L8.8 12H2.6z"/>'),
+    train: svg('<rect x="6" y="3.4" width="12" height="12.4" rx="3"/><path d="M6 10.6h12"/><path d="M9 6.4h2M13 6.4h2"/><circle cx="8.6" cy="18.6" r="1.35"/><circle cx="15.4" cy="18.6" r="1.35"/><path d="M8.6 15.8v1.4M15.4 15.8v1.4"/>'),
+    ferry: svg('<path d="M3.8 14.8h16.4l-1.6 3.3H5.4L3.8 14.8z"/><path d="M7 14.8V9.2h6.2l2.2 3.2H18"/><path d="M13.2 9.2V5.6h4.2"/><path d="M3.4 20.4c1.2.7 2.2.7 3.4 0s2.2-.7 3.4 0 2.2.7 3.4 0 2.2-.7 3.4 0 2.2.7 3.4 0"/>'),
+    chevron: svg('<path d="m9 6 6 6-6 6"/>'),
+    external: svg('<path d="M14 5h5v5"/><path d="M19 5 10 14"/><path d="M16 13.5V19H5V8h5.5"/>'),
   };
 
   function detectLang() {
@@ -59,7 +71,9 @@
 
   function isComingSoon(section) {
     if (section.type === "directions") return false;
-    return !section.items || section.items.length === 0;
+    if (section.type === "places") return !section.items || section.items.length === 0;
+    if (section.type === "notes") return !section.paragraphs || section.paragraphs.length === 0;
+    return true;
   }
 
   function icon(name, className) {
@@ -89,26 +103,23 @@
     return a;
   }
 
-  function renderLangSwitch(container) {
-    var active = document.activeElement;
-    var restore =
-      active &&
-      container.contains(active) &&
-      active.getAttribute("data-set-lang");
-    container.replaceChildren();
-    container.setAttribute("role", "group");
-    container.setAttribute("aria-label", t("languageLabel"));
-    container.appendChild(langButton("it"));
-    var sep = document.createElement("span");
-    sep.className = "lang-sep";
-    sep.setAttribute("aria-hidden", "true");
-    sep.textContent = "|";
-    container.appendChild(sep);
-    container.appendChild(langButton("en"));
-    if (restore) {
-      var next = container.querySelector('[data-set-lang="' + restore + '"]');
-      if (next) next.focus();
+  function updateLangSwitch(container) {
+    if (!container.querySelector("[data-set-lang]")) {
+      container.setAttribute("role", "group");
+      container.appendChild(langButton("it"));
+      var sep = document.createElement("span");
+      sep.className = "lang-sep";
+      sep.setAttribute("aria-hidden", "true");
+      sep.textContent = "|";
+      container.appendChild(sep);
+      container.appendChild(langButton("en"));
     }
+    container.setAttribute("aria-label", t("languageLabel"));
+    var buttons = container.querySelectorAll("[data-set-lang]");
+    buttons.forEach(function (button) {
+      var on = button.getAttribute("data-set-lang") === state.lang;
+      button.setAttribute("aria-pressed", on ? "true" : "false");
+    });
   }
 
   function langButton(code) {
@@ -138,17 +149,22 @@
       button.setAttribute("aria-haspopup", "dialog");
       button.setAttribute("aria-controls", "sheet");
       button.setAttribute("aria-expanded", state.openId === section.id ? "true" : "false");
-      button.appendChild(icon(section.icon, "tile-icon"));
+      var face = document.createElement("span");
+      face.className = "tile-face";
+      face.appendChild(icon(section.icon, "tile-glyph"));
+      button.appendChild(face);
       var label = document.createElement("span");
       label.className = "tile-label";
       label.textContent = text(section.title);
       button.appendChild(label);
+      var meta = document.createElement("span");
+      meta.className = "tile-meta";
       if (isComingSoon(section)) {
-        var badge = document.createElement("span");
-        badge.className = "tile-badge";
-        badge.textContent = t("comingSoon");
-        button.appendChild(badge);
+        meta.textContent = t("comingSoon");
+      } else {
+        meta.setAttribute("aria-hidden", "true");
       }
+      button.appendChild(meta);
       button.addEventListener("click", function () {
         openSection(section.id);
       });
@@ -273,10 +289,22 @@
     return fragment;
   }
 
+  function renderNotes(section) {
+    var wrap = document.createElement("div");
+    wrap.className = "notes";
+    (section.paragraphs || []).forEach(function (paragraph) {
+      var p = document.createElement("p");
+      p.textContent = text(paragraph);
+      wrap.appendChild(p);
+    });
+    return wrap;
+  }
+
   function renderSectionBody(section) {
     if (isComingSoon(section)) return renderSoon(section);
     if (section.type === "directions") return renderDirections(section);
     if (section.type === "places") return renderPlaces(section);
+    if (section.type === "notes") return renderNotes(section);
     return renderSoon(section);
   }
 
@@ -314,9 +342,11 @@
     var meta = document.querySelector('meta[name="description"]');
     if (meta) meta.setAttribute("content", t("metaDescription"));
     document.getElementById("tagline").textContent = t("tagline");
+    var hint = document.getElementById("hint");
+    if (hint) hint.textContent = t("hint");
     document.getElementById("skip").textContent = t("skip");
-    renderLangSwitch(document.getElementById("lang-switch"));
-    renderLangSwitch(document.getElementById("sheet-lang"));
+    updateLangSwitch(document.getElementById("lang-switch"));
+    updateLangSwitch(document.getElementById("sheet-lang"));
     renderGrid();
     renderHomeAddress();
     renderSheet();
@@ -327,20 +357,32 @@
 
   function setLang(lang) {
     if (lang !== "it" && lang !== "en") return;
-    if (lang === state.lang) return;
+    var changed = lang !== state.lang;
     state.lang = lang;
     try {
       localStorage.setItem(STORAGE_KEY, lang);
     } catch (e) {
       /* ignore quota / private mode */
     }
+    if (!changed) return;
     render({ announce: true });
+  }
+
+  function syncExpanded() {
+    var buttons = document.querySelectorAll(".tile");
+    buttons.forEach(function (button) {
+      button.setAttribute(
+        "aria-expanded",
+        button.dataset.section === state.openId ? "true" : "false"
+      );
+    });
   }
 
   function openSection(id) {
     state.openId = id;
     state.triggerId = id;
-    render();
+    syncExpanded();
+    renderSheet();
     var dialog = document.getElementById("sheet");
     if (!dialog.open) dialog.showModal();
     document.getElementById("sheet-back").focus();
@@ -349,7 +391,8 @@
   function onClose() {
     var id = state.triggerId;
     state.openId = null;
-    render();
+    syncExpanded();
+    renderSheet();
     window.setTimeout(function () {
       var button = document.querySelector('[data-section="' + id + '"]');
       if (button) button.focus();

@@ -4,11 +4,15 @@
  * How to edit
  * - Each sentence has an `it` (Italian) and an `en` (English) version.
  * - Place names and street addresses are plain strings (they stay the same).
- * - Icons you can use: pin, parking, restaurant, cup, plane, train, ferry.
- * - Restaurants and Bars show "In arrivo / Coming soon" while `items` is empty.
- *   Add a card in the same shape as the parking garages (name, address, text,
- *   mapsUrl) and it replaces the placeholder. Only add places you have checked.
- *   Do not guess phone numbers, prices, or opening hours.
+ * - Icons: house, key, pin, parking, wifi, rules, bus, sofa, compass, info,
+ *   cup, plate, bag, cross, door, phone, plane, train, ferry.
+ * - `type: "notes"` — add sentences to `paragraphs` as `{ it, en }`.
+ *   An empty list shows "In arrivo / Coming soon".
+ * - `type: "places"` — add cards to `items` like the parking garages
+ *   (`name`, `address`, `text: { it, en }`, `mapsUrl`). An empty list
+ *   shows "In arrivo / Coming soon".
+ * - Only add details you have checked. Do not guess passwords, phone
+ *   numbers, prices, or opening hours.
  */
 window.COZY_CONTENT = {
   property: {
@@ -30,6 +34,10 @@ window.COZY_CONTENT = {
     tagline: {
       it: "La guida per il tuo soggiorno",
       en: "A guide for your stay",
+    },
+    hint: {
+      it: "Clicca sulle icone",
+      en: "Tap the icons",
     },
     languageLabel: {
       it: "Lingua",
@@ -82,6 +90,20 @@ window.COZY_CONTENT = {
   },
 
   sections: [
+    {
+      id: "welcome",
+      icon: "house",
+      title: { it: "Benvenuti", en: "Welcome" },
+      type: "notes",
+      paragraphs: [],
+    },
+    {
+      id: "checkin",
+      icon: "key",
+      title: { it: "Check-in", en: "Check-in" },
+      type: "notes",
+      paragraphs: [],
+    },
     {
       id: "location",
       icon: "pin",
@@ -166,20 +188,88 @@ window.COZY_CONTENT = {
       ],
     },
     {
-      id: "restaurants",
-      icon: "restaurant",
-      title: { it: "Ristoranti", en: "Restaurants" },
-      type: "places",
-      comingSoon: true,
-      items: [],
+      id: "wifi",
+      icon: "wifi",
+      title: { it: "Wi-Fi", en: "Wi-Fi" },
+      type: "notes",
+      paragraphs: [],
+    },
+    {
+      id: "rules",
+      icon: "rules",
+      title: { it: "Regole", en: "House rules" },
+      type: "notes",
+      paragraphs: [],
+    },
+    {
+      id: "transport",
+      icon: "bus",
+      title: { it: "Trasporti", en: "Transport" },
+      type: "notes",
+      paragraphs: [],
+    },
+    {
+      id: "amenities",
+      icon: "sofa",
+      title: { it: "Servizi", en: "Amenities" },
+      type: "notes",
+      paragraphs: [],
+    },
+    {
+      id: "activities",
+      icon: "compass",
+      title: { it: "Attività", en: "Things to do" },
+      type: "notes",
+      paragraphs: [],
+    },
+    {
+      id: "info",
+      icon: "info",
+      title: { it: "Info", en: "Info" },
+      type: "notes",
+      paragraphs: [],
     },
     {
       id: "bars",
       icon: "cup",
       title: { it: "Bar", en: "Bars" },
       type: "places",
-      comingSoon: true,
       items: [],
+    },
+    {
+      id: "restaurants",
+      icon: "plate",
+      title: { it: "Ristoranti", en: "Restaurants" },
+      type: "places",
+      items: [],
+    },
+    {
+      id: "shopping",
+      icon: "bag",
+      title: { it: "Shopping", en: "Shopping" },
+      type: "places",
+      items: [],
+    },
+    {
+      id: "emergencies",
+      icon: "cross",
+      title: { it: "Emergenze", en: "Emergencies" },
+      type: "notes",
+      paragraphs: [],
+    },
+    {
+      id: "checkout",
+      icon: "door",
+      title: { it: "Check-out", en: "Check-out" },
+      type: "notes",
+      paragraphs: [],
+    },
+    {
+      id: "contacts",
+      icon: "phone",
+      title: { it: "Contatti", en: "Contacts" },
+      type: "notes",
+      paragraphs: [],
     },
   ],
 };
