@@ -457,18 +457,6 @@ html.intro-seen .intro {
   filter: drop-shadow(0 7px 5px rgba(20, 18, 22, 0.32));
 }
 
-.tile-dot {
-  position: absolute;
-  z-index: 1;
-  top: 7%;
-  inset-inline-end: 8%;
-  width: 0.55rem;
-  height: 0.55rem;
-  border-radius: 50%;
-  background: var(--orange);
-  box-shadow: 0 0 0 2px var(--bg);
-}
-
 .route-icon svg,
 .soon-icon svg,
 .notice-icon svg,
@@ -959,13 +947,6 @@ html.intro-seen .intro {
     font-size: 0.85rem;
   }
 
-  .tile-dot {
-    top: 8%;
-    inset-inline-end: 9%;
-    width: 0.7rem;
-    height: 0.7rem;
-  }
-
   .player {
     width: 4rem;
     height: 4rem;
@@ -1020,7 +1001,6 @@ html.intro-seen .intro {
   .btn,
   .lang-code,
   .lang-option[aria-selected="true"],
-  .tile-dot,
   .soon-icon {
     background: ButtonText;
     color: ButtonFace;
