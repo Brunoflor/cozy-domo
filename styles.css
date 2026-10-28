@@ -156,22 +156,6 @@ html:not(.intro-seen) .player {
   animation: player-spin 14s linear infinite;
 }
 
-.player-on {
-  position: absolute;
-  top: 0.1rem;
-  inset-inline-end: 0.05rem;
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  background: var(--orange);
-  box-shadow: 0 0 0 2px var(--bg);
-  opacity: 0;
-}
-
-.player.is-playing .player-on {
-  opacity: 1;
-}
-
 @keyframes player-spin {
   to {
     transform: rotate(360deg);
