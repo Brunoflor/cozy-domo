@@ -305,10 +305,6 @@
       var face = document.createElement("span");
       face.className = "tile-face";
       face.appendChild(tileGlyph(section.icon));
-      var dot = document.createElement("span");
-      dot.className = "tile-dot";
-      dot.setAttribute("aria-hidden", "true");
-      face.appendChild(dot);
       button.appendChild(face);
       var label = document.createElement("span");
       label.className = "tile-label";
