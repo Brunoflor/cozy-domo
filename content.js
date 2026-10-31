@@ -12,6 +12,9 @@
  * - `type: "places"` — add cards to `items` like the parking garages
  *   (`name`, `address`, `text` as a language object, `mapsUrl`).
  *   An empty list shows "Coming soon".
+ * - `type: "guide"` — ordered `blocks` (time, text, steps, photo, code,
+ *   notice, buttons, taxcalc, place, checklist, faq, closing).
+ *   An empty list shows "Coming soon". Emphasis is **double asterisks**.
  * - Only add details you have checked. Do not guess passwords, phone
  *   numbers, prices, or opening hours.
  */
@@ -190,6 +193,105 @@ window.COZY_CONTENT = {
       "ja": "アクセス",
       "ar": "كيفية الوصول"
     },
+    "copied": {
+      "it": "Copiato",
+      "en": "Copied",
+      "es": "Copiado",
+      "fr": "Copié",
+      "de": "Kopiert",
+      "pt": "Copiado",
+      "zh": "已复制",
+      "ja": "コピーしました",
+      "ar": "تم النسخ"
+    },
+    "copyHint": {
+      "it": "Tocca per copiare",
+      "en": "Tap to copy",
+      "es": "Toca para copiar",
+      "fr": "Touchez pour copier",
+      "de": "Tippen zum Kopieren",
+      "pt": "Toque para copiar",
+      "zh": "点按复制",
+      "ja": "タップしてコピー",
+      "ar": "اضغط للنسخ"
+    },
+    "guests": {
+      "it": "Ospiti",
+      "en": "Guests",
+      "es": "Huéspedes",
+      "fr": "Voyageurs",
+      "de": "Gäste",
+      "pt": "Hóspedes",
+      "zh": "住客",
+      "ja": "ゲスト",
+      "ar": "الضيوف"
+    },
+    "nights": {
+      "it": "Notti",
+      "en": "Nights",
+      "es": "Noches",
+      "fr": "Nuits",
+      "de": "Nächte",
+      "pt": "Noites",
+      "zh": "晚",
+      "ja": "泊",
+      "ar": "ليالٍ"
+    },
+    "totalLabel": {
+      "it": "Totale",
+      "en": "Total",
+      "es": "Total",
+      "fr": "Total",
+      "de": "Summe",
+      "pt": "Total",
+      "zh": "合计",
+      "ja": "合計",
+      "ar": "المجموع"
+    },
+    "less": {
+      "it": "Diminuisci",
+      "en": "Decrease",
+      "es": "Reducir",
+      "fr": "Diminuer",
+      "de": "Verringern",
+      "pt": "Diminuir",
+      "zh": "减少",
+      "ja": "減らす",
+      "ar": "إنقاص"
+    },
+    "more": {
+      "it": "Aumenta",
+      "en": "Increase",
+      "es": "Aumentar",
+      "fr": "Augmenter",
+      "de": "Erhöhen",
+      "pt": "Aumentar",
+      "zh": "增加",
+      "ja": "増やす",
+      "ar": "زيادة"
+    },
+    "progress": {
+      "it": "{done} di {total} completati",
+      "en": "{done} of {total} completed",
+      "es": "{done} de {total} completados",
+      "fr": "{done} sur {total} terminés",
+      "de": "{done} von {total} erledigt",
+      "pt": "{done} de {total} concluídos",
+      "zh": "已完成 {done}/{total}",
+      "ja": "{total} 件中 {done} 件完了",
+      "ar": "{done} من {total} مكتملة"
+    },
+    "reset": {
+      "it": "Azzera",
+      "en": "Reset",
+      "es": "Restablecer",
+      "fr": "Réinitialiser",
+      "de": "Zurücksetzen",
+      "pt": "Repor",
+      "zh": "重置",
+      "ja": "リセット",
+      "ar": "إعادة تعيين"
+    },
     "comingSoon": {
       "it": "In arrivo",
       "en": "Coming soon",
@@ -245,8 +347,286 @@ window.COZY_CONTENT = {
         "ja": "チェックイン",
         "ar": "تسجيل الوصول"
       },
-      "type": "notes",
-      "paragraphs": []
+      "type": "guide",
+      "blocks": [
+        {
+          "type": "time",
+          "label": {
+            "it": "Self check-in",
+            "en": "Self check-in",
+            "es": "Check-in autónomo",
+            "fr": "Check-in autonome",
+            "de": "Self-Check-in",
+            "pt": "Check-in autónomo",
+            "zh": "自助入住",
+            "ja": "セルフチェックイン",
+            "ar": "تسجيل وصول ذاتي"
+          },
+          "value": "15:00"
+        },
+        {
+          "type": "text",
+          "body": {
+            "it": "Potete arrivare **a qualsiasi ora**, anche di notte: il check-in è **autonomo**.",
+            "en": "You can arrive **at any time**, even at night: check-in is **self-service**.",
+            "es": "Podéis llegar **a cualquier hora**, también de noche: el check-in es **autónomo**.",
+            "fr": "Vous pouvez arriver **à n'importe quelle heure**, même la nuit : le check-in est **autonome**.",
+            "de": "Sie können **zu jeder Uhrzeit** ankommen, auch nachts: der Check-in ist **selbstständig**.",
+            "pt": "Podem chegar **a qualquer hora**, mesmo de noite: o check-in é **autónomo**.",
+            "zh": "你们可以**随时到达**，包括夜间：入住是**自助的**。",
+            "ja": "**いつでも**到着できます。夜でも大丈夫です。チェックインは**セルフ**です。",
+            "ar": "يمكنكم الوصول **في أي وقت**، حتى ليلاً: تسجيل الوصول **ذاتي**."
+          }
+        },
+        {
+          "type": "text",
+          "body": {
+            "it": "Se arrivate prima, potete **lasciare i bagagli dalle 11:00** e tornare alle **15:00**, quando la casa sarà pronta.",
+            "en": "If you arrive early, you can **leave your bags from 11:00** and come back at **15:00**, when the apartment will be ready.",
+            "es": "Si llegáis antes, podéis **dejar el equipaje desde las 11:00** y volver a las **15:00**, cuando la casa estará lista.",
+            "fr": "Si vous arrivez plus tôt, vous pouvez **déposer les bagages dès 11:00** et revenir à **15:00**, quand le logement sera prêt.",
+            "de": "Wenn Sie früher ankommen, können Sie **das Gepäck ab 11:00 abgeben** und um **15:00** wiederkommen, wenn die Wohnung bereit ist.",
+            "pt": "Se chegarem mais cedo, podem **deixar a bagagem a partir das 11:00** e voltar às **15:00**, quando a casa estiver pronta.",
+            "zh": "如果提前到达，可以**从 11:00 起寄存行李**，**15:00** 再回来，那时房子会准备好。",
+            "ja": "早く着いた場合は、**11:00から荷物を預け**、家の準備ができる**15:00**に戻ってください。",
+            "ar": "إذا وصلتم مبكرًا، يمكنكم **ترك الحقائب من الساعة 11:00** والعودة في **15:00**، عندما يكون المنزل جاهزًا."
+          }
+        },
+        {
+          "type": "steps",
+          "title": {
+            "it": "Come entrare",
+            "en": "How to get in",
+            "es": "Cómo entrar",
+            "fr": "Comment entrer",
+            "de": "So kommen Sie hinein",
+            "pt": "Como entrar",
+            "zh": "如何进入",
+            "ja": "入り方",
+            "ar": "كيفية الدخول"
+          },
+          "items": [
+            {
+              "text": {
+                "it": "Arrivati in **Via Gregorio Mattei 26**, suonate il **terzo pulsante senza nome** del citofono (quello cerchiato in foto).",
+                "en": "When you reach **Via Gregorio Mattei 26**, press the **third unnamed button** on the intercom (the one circled in the photo).",
+                "es": "Al llegar a **Via Gregorio Mattei 26**, tocad el **tercer botón sin nombre** del portero (el que está rodeado en la foto).",
+                "fr": "Arrivés au **Via Gregorio Mattei 26**, sonnez le **troisième bouton sans nom** de l'interphone (celui entouré sur la photo).",
+                "de": "Am **Via Gregorio Mattei 26** drücken Sie die **dritte Taste ohne Namen** an der Sprechanlage (die auf dem Foto eingekreist ist).",
+                "pt": "Chegados à **Via Gregorio Mattei 26**, toquem no **terceiro botão sem nome** do intercomunicador (o que está circulado na foto).",
+                "zh": "到达 **Via Gregorio Mattei 26** 后，按对讲机上**第三个没有名字的按钮**（照片里圈出的那个）。",
+                "ja": "**Via Gregorio Mattei 26** に着いたら、インターホンの**名前のない3番目のボタン**（写真で丸をつけたもの）を押してください。",
+                "ar": "عند الوصول إلى **Via Gregorio Mattei 26**، اضغطوا **الزر الثالث بلا اسم** في جهاز الاتصال (المُحاط بدائرة في الصورة)."
+              },
+              "photo": "images/citofono.webp",
+              "alt": {
+                "it": "Citofono: il terzo pulsante senza nome è cerchiato",
+                "en": "Intercom: the third unnamed button is circled",
+                "es": "Portero: el tercer botón sin nombre está rodeado",
+                "fr": "Interphone : le troisième bouton sans nom est entouré",
+                "de": "Sprechanlage: die dritte Taste ohne Namen ist eingekreist",
+                "pt": "Intercomunicador: o terceiro botão sem nome está circulado",
+                "zh": "对讲机：第三个没有名字的按钮被圈出",
+                "ja": "インターホン：名前のない3番目のボタンに丸",
+                "ar": "جهاز الاتصال: الزر الثالث بلا اسم مُحاط بدائرة"
+              }
+            },
+            {
+              "text": {
+                "it": "Vi apriamo il **portone a distanza**.",
+                "en": "We open the **street door remotely**.",
+                "es": "Os abrimos el **portal a distancia**.",
+                "fr": "Nous ouvrons le **portail à distance**.",
+                "de": "Wir öffnen das **Haustor aus der Ferne**.",
+                "pt": "Abrimos o **portão à distância**.",
+                "zh": "我们会**远程打开大门**。",
+                "ja": "**玄関ドアを遠隔で開けます**。",
+                "ar": "نفتح **البوابة عن بُعد**."
+              },
+              "photo": "images/portone.webp",
+              "alt": {
+                "it": "Portone di Via Gregorio Mattei 26",
+                "en": "Street door at Via Gregorio Mattei 26",
+                "es": "Portal de Via Gregorio Mattei 26",
+                "fr": "Portail du Via Gregorio Mattei 26",
+                "de": "Haustor in der Via Gregorio Mattei 26",
+                "pt": "Portão da Via Gregorio Mattei 26",
+                "zh": "Via Gregorio Mattei 26 的大门",
+                "ja": "Via Gregorio Mattei 26 の玄関ドア",
+                "ar": "بوابة Via Gregorio Mattei 26"
+              }
+            },
+            {
+              "text": {
+                "it": "Salite a piedi al **secondo piano**: non c'è l'ascensore.",
+                "en": "Walk up to the **second floor**: there is no lift.",
+                "es": "Subid a pie al **segundo piso**: no hay ascensor.",
+                "fr": "Montez à pied au **deuxième étage** : il n'y a pas d'ascenseur.",
+                "de": "Gehen Sie zu Fuß in den **zweiten Stock**: es gibt keinen Aufzug.",
+                "pt": "Subam a pé ao **segundo andar**: não há elevador.",
+                "zh": "步行上到**二楼**：没有电梯。",
+                "ja": "**2階**まで歩いて上がってください。エレベーターはありません。",
+                "ar": "اصعدوا سيرًا إلى **الطابق الثاني**: لا يوجد مصعد."
+              }
+            },
+            {
+              "text": {
+                "it": "Trovate la porta **CV Home**: la **cassetta delle chiavi è a destra** della porta. Inserite il codice e prendete le chiavi.",
+                "en": "Find the door marked **CV Home**: the **key box is to the right** of the door. Enter the code and take the keys.",
+                "es": "Encontrad la puerta **CV Home**: la **caja de llaves está a la derecha** de la puerta. Introducid el código y coged las llaves.",
+                "fr": "Trouvez la porte **CV Home** : la **boîte à clés est à droite** de la porte. Entrez le code et prenez les clés.",
+                "de": "Sie finden die Tür **CV Home**: das **Schlüsselfach ist rechts** neben der Tür. Geben Sie den Code ein und nehmen Sie die Schlüssel.",
+                "pt": "Encontrem a porta **CV Home**: a **caixa das chaves fica à direita** da porta. Introduzam o código e peguem nas chaves.",
+                "zh": "找到标有 **CV Home** 的门：**钥匙盒在门的右侧**。输入密码，取走钥匙。",
+                "ja": "**CV Home** のドアを見つけてください。**キーボックスはドアの右側**にあります。コードを入力して鍵を取ってください。",
+                "ar": "ستجدون الباب **CV Home**: **صندوق المفاتيح على يمين** الباب. أدخلوا الرمز وخذوا المفاتيح."
+              },
+              "photo": "images/porta.webp",
+              "alt": {
+                "it": "Porta CV Home con la cassetta delle chiavi a destra",
+                "en": "CV Home door with the key box on the right",
+                "es": "Puerta CV Home con la caja de llaves a la derecha",
+                "fr": "Porte CV Home avec la boîte à clés à droite",
+                "de": "Tür CV Home mit dem Schlüsselfach rechts",
+                "pt": "Porta CV Home com a caixa das chaves à direita",
+                "zh": "CV Home 的门，钥匙盒在右侧",
+                "ja": "CV Home のドア。キーボックスは右側",
+                "ar": "باب CV Home وصندوق المفاتيح على اليمين"
+              }
+            },
+            {
+              "text": {
+                "it": "Entrate e **benvenuti a Cozy Domo!**",
+                "en": "Come in, and **welcome to Cozy Domo!**",
+                "es": "Entrad y **¡bienvenidos a Cozy Domo!**",
+                "fr": "Entrez, et **bienvenue à Cozy Domo !**",
+                "de": "Treten Sie ein, und **willkommen bei Cozy Domo!**",
+                "pt": "Entrem e **bem-vindos à Cozy Domo!**",
+                "zh": "请进，**欢迎来到 Cozy Domo！**",
+                "ja": "入ってください。**Cozy Domo へようこそ！**",
+                "ar": "ادخلوا و**أهلاً بكم في Cozy Domo!**"
+              }
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "label": {
+            "it": "Codice cassetta delle chiavi",
+            "en": "Key-box code",
+            "es": "Código de la caja de llaves",
+            "fr": "Code de la boîte à clés",
+            "de": "Code für das Schlüsselfach",
+            "pt": "Código da caixa das chaves",
+            "zh": "钥匙盒密码",
+            "ja": "キーボックスのコード",
+            "ar": "رمز صندوق المفاتيح"
+          },
+          "code": "0026",
+          "note": {
+            "it": "Valido solo per il vostro soggiorno",
+            "en": "Valid only for your stay",
+            "es": "Válido solo para vuestra estancia",
+            "fr": "Valable uniquement pour votre séjour",
+            "de": "Nur für Ihren Aufenthalt gültig",
+            "pt": "Válido apenas para a vossa estadia",
+            "zh": "仅在您入住期间有效",
+            "ja": "ご滞在中のみ有効です",
+            "ar": "صالح فقط لمدة إقامتكم"
+          }
+        },
+        {
+          "type": "buttons",
+          "items": [
+            {
+              "kind": "tel",
+              "label": {
+                "it": "Chiamaci",
+                "en": "Call us",
+                "es": "Llámanos",
+                "fr": "Appelez-nous",
+                "de": "Rufen Sie uns an",
+                "pt": "Liguem-nos",
+                "zh": "给我们打电话",
+                "ja": "電話する",
+                "ar": "اتصلوا بنا"
+              },
+              "href": "tel:+393470129768"
+            },
+            {
+              "kind": "whatsapp",
+              "label": {
+                "it": "Sono arrivato — aprite il portone",
+                "en": "I've arrived — please open the door",
+                "es": "Ya he llegado — abrid el portal",
+                "fr": "Je suis arrivé — ouvrez le portail",
+                "de": "Ich bin da — bitte das Haustor öffnen",
+                "pt": "Já cheguei — abram o portão",
+                "zh": "我到了 — 请打开大门",
+                "ja": "到着しました — 玄関を開けてください",
+                "ar": "وصلنا — افتحوا البوابة"
+              },
+              "phone": "393470129768",
+              "message": {
+                "it": "Buongiorno! Siamo appena arrivati in Via Gregorio Mattei 26. Potete aprirci il portone? Grazie!",
+                "en": "Hello! We have just arrived at Via Gregorio Mattei 26. Could you open the street door for us? Thank you!",
+                "es": "¡Buenos días! Acabamos de llegar a Via Gregorio Mattei 26. ¿Podéis abrirnos el portal? ¡Gracias!",
+                "fr": "Bonjour ! Nous venons d'arriver au Via Gregorio Mattei 26. Pouvez-vous nous ouvrir le portail ? Merci !",
+                "de": "Guten Tag! Wir sind gerade in der Via Gregorio Mattei 26 angekommen. Können Sie uns das Haustor öffnen? Danke!",
+                "pt": "Bom dia! Acabámos de chegar à Via Gregorio Mattei 26. Podem abrir-nos o portão? Obrigado!",
+                "zh": "您好！我们刚到 Via Gregorio Mattei 26。可以帮我们打开大门吗？谢谢！",
+                "ja": "こんにちは。Via Gregorio Mattei 26 に着きました。玄関ドアを開けていただけますか？ありがとうございます。",
+                "ar": "مرحبًا! وصلنا للتو إلى Via Gregorio Mattei 26. هل يمكنكم فتح البوابة لنا؟ شكرًا!"
+              }
+            }
+          ]
+        },
+        {
+          "type": "notice",
+          "title": {
+            "it": "Tassa di soggiorno",
+            "en": "Tourist tax",
+            "es": "Tasa turística",
+            "fr": "Taxe de séjour",
+            "de": "Kurtaxe",
+            "pt": "Taxa turística",
+            "zh": "旅游税",
+            "ja": "宿泊税",
+            "ar": "ضريبة الإقامة"
+          },
+          "body": {
+            "it": "La tassa di soggiorno di Napoli è di **6 € a persona a notte**, da pagare **all'arrivo** in **contanti, con bonifico o PayPal**.",
+            "en": "Naples tourist tax is **€6 per person per night**, payable **on arrival** in **cash, by bank transfer or PayPal**.",
+            "es": "La tasa turística de Nápoles es de **6 € por persona y noche**, a pagar **a la llegada** en **efectivo, por transferencia o PayPal**.",
+            "fr": "La taxe de séjour de Naples est de **6 € par personne et par nuit**, à payer **à l'arrivée** en **espèces, par virement ou PayPal**.",
+            "de": "Die Kurtaxe in Neapel beträgt **6 € pro Person und Nacht**, zu zahlen **bei der Ankunft** in **bar, per Überweisung oder PayPal**.",
+            "pt": "A taxa turística de Nápoles é de **6 € por pessoa por noite**, a pagar **à chegada** em **dinheiro, por transferência ou PayPal**.",
+            "zh": "那不勒斯旅游税为**每人每晚 6 欧元**，请在**抵达时**以**现金、银行转账或 PayPal** 支付。",
+            "ja": "ナポリの宿泊税は**1人1泊6ユーロ**です。**到着時**に**現金、振込、または PayPal** でお支払いください。",
+            "ar": "ضريبة الإقامة في نابولي **6 يورو للشخص في الليلة**، تُدفع **عند الوصول** **نقدًا أو بتحويل بنكي أو عبر PayPal**."
+          }
+        },
+        {
+          "type": "taxcalc",
+          "rate": 6,
+          "guests": 2,
+          "nights": 2
+        },
+        {
+          "type": "closing",
+          "text": {
+            "it": "Buon soggiorno a Napoli!",
+            "en": "Enjoy your stay in Naples!",
+            "es": "¡Buena estancia en Nápoles!",
+            "fr": "Bon séjour à Naples !",
+            "de": "Schönen Aufenthalt in Neapel!",
+            "pt": "Boa estadia em Nápoles!",
+            "zh": "祝您在那不勒斯住得愉快！",
+            "ja": "ナポリでのご滞在をお楽しみください！",
+            "ar": "إقامة سعيدة في نابولي!"
+          }
+        }
+      ]
     },
     {
       "id": "location",
@@ -608,8 +988,231 @@ window.COZY_CONTENT = {
         "ja": "チェックアウト",
         "ar": "تسجيل المغادرة"
       },
-      "type": "notes",
-      "paragraphs": []
+      "type": "guide",
+      "blocks": [
+        {
+          "type": "time",
+          "label": {
+            "it": "Check-out",
+            "en": "Check-out",
+            "es": "Check-out",
+            "fr": "Check-out",
+            "de": "Check-out",
+            "pt": "Check-out",
+            "zh": "退房",
+            "ja": "チェックアウト",
+            "ar": "تسجيل المغادرة"
+          },
+          "value": "11:00"
+        },
+        {
+          "type": "notice",
+          "body": {
+            "it": "Il **late check-out** e il **deposito bagagli** in casa **non sono possibili** quando c'è un'altra prenotazione.",
+            "en": "**Late check-out** and **leaving bags in the apartment** are **not possible** when another booking follows.",
+            "es": "El **late check-out** y el **depósito de equipaje** en la casa **no son posibles** cuando hay otra reserva.",
+            "fr": "Le **late check-out** et le **dépôt des bagages** dans le logement **ne sont pas possibles** lorsqu'une autre réservation suit.",
+            "de": "**Late Check-out** und **Gepäckaufbewahrung** in der Wohnung sind **nicht möglich**, wenn eine weitere Buchung folgt.",
+            "pt": "O **late check-out** e o **depósito de bagagem** em casa **não são possíveis** quando há outra reserva.",
+            "zh": "如果后面还有其他预订，**延迟退房**和**把行李留在屋内**都**不可以**。",
+            "ja": "次の予約がある場合、**レイトチェックアウト**と室内での**荷物預かり**は**できません**。",
+            "ar": "**المغادرة المتأخرة** و**ترك الحقائب في المنزل** **غير ممكنين** عندما يوجد حجز آخر."
+          }
+        },
+        {
+          "type": "place",
+          "name": {
+            "it": "Deposito bagagli — Unlock Bags",
+            "en": "Luggage storage — Unlock Bags",
+            "es": "Consigna de equipaje — Unlock Bags",
+            "fr": "Consigne à bagages — Unlock Bags",
+            "de": "Gepäckaufbewahrung — Unlock Bags",
+            "pt": "Depósito de bagagem — Unlock Bags",
+            "zh": "行李寄存 — Unlock Bags",
+            "ja": "荷物預かり — Unlock Bags",
+            "ar": "إيداع الأمتعة — Unlock Bags"
+          },
+          "address": "Via Ernesto Capocci 6, Napoli",
+          "text": {
+            "it": "Aperto 24 ore su 24",
+            "en": "Open 24 hours",
+            "es": "Abierto 24 horas",
+            "fr": "Ouvert 24h/24",
+            "de": "Rund um die Uhr geöffnet",
+            "pt": "Aberto 24 horas",
+            "zh": "24 小时营业",
+            "ja": "24時間営業",
+            "ar": "مفتوح 24 ساعة"
+          },
+          "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Via+Ernesto+Capocci+6%2C+Napoli"
+        },
+        {
+          "type": "checklist",
+          "title": {
+            "it": "Prima di partire",
+            "en": "Before you leave",
+            "es": "Antes de salir",
+            "fr": "Avant de partir",
+            "de": "Vor der Abreise",
+            "pt": "Antes de partir",
+            "zh": "离开之前",
+            "ja": "出発の前に",
+            "ar": "قبل المغادرة"
+          },
+          "done": {
+            "it": "Tutto pronto — buon viaggio di ritorno!",
+            "en": "All set — have a good trip home!",
+            "es": "Todo listo — ¡buen viaje de vuelta!",
+            "fr": "Tout est prêt — bon voyage de retour !",
+            "de": "Alles erledigt — gute Heimreise!",
+            "pt": "Tudo pronto — boa viagem de regresso!",
+            "zh": "都准备好了 — 祝返程顺利！",
+            "ja": "準備完了 — お帰りもよい旅を！",
+            "ar": "كل شيء جاهز — رحلة عودة سعيدة!"
+          },
+          "items": [
+            {
+              "id": "leave",
+              "title": {
+                "it": "Uscite entro le 11:00",
+                "en": "Leave by 11:00",
+                "es": "Salid antes de las 11:00",
+                "fr": "Partez avant 11:00",
+                "de": "Gehen Sie bis 11:00",
+                "pt": "Saiam até às 11:00",
+                "zh": "请在 11:00 前离开",
+                "ja": "11:00 までに出発",
+                "ar": "غادروا قبل 11:00"
+              },
+              "text": {
+                "it": "Controllate di **non aver dimenticato nulla**.",
+                "en": "Check you have **not forgotten anything**.",
+                "es": "Comprobad que **no os habéis dejado nada**.",
+                "fr": "Vérifiez que vous **n'avez rien oublié**.",
+                "de": "Prüfen Sie, dass Sie **nichts vergessen haben**.",
+                "pt": "Verifiquem que **não se esqueceram de nada**.",
+                "zh": "请确认**没有落下任何东西**。",
+                "ja": "**忘れ物がないか**確認してください。",
+                "ar": "تأكدوا من أنكم **لم تنسوا شيئًا**."
+              }
+            },
+            {
+              "id": "lights",
+              "title": {
+                "it": "Luci spente",
+                "en": "Lights off",
+                "es": "Luces apagadas",
+                "fr": "Lumières éteintes",
+                "de": "Lichter aus",
+                "pt": "Luzes apagadas",
+                "zh": "灯已关闭",
+                "ja": "照明オフ",
+                "ar": "الأنوار مطفأة"
+              },
+              "text": {
+                "it": "**Spegnete tutte le luci.**",
+                "en": "**Turn off all the lights.**",
+                "es": "**Apagad todas las luces.**",
+                "fr": "**Éteignez toutes les lumières.**",
+                "de": "**Schalten Sie alle Lichter aus.**",
+                "pt": "**Apaguem todas as luzes.**",
+                "zh": "**请关掉所有的灯。**",
+                "ja": "**照明をすべて消してください。**",
+                "ar": "**أطفئوا جميع الأنوار.**"
+              }
+            },
+            {
+              "id": "ac",
+              "title": {
+                "it": "Condizionatore spento",
+                "en": "Air conditioning off",
+                "es": "Aire acondicionado apagado",
+                "fr": "Climatisation éteinte",
+                "de": "Klimaanlage aus",
+                "pt": "Ar condicionado desligado",
+                "zh": "空调已关闭",
+                "ja": "エアコンオフ",
+                "ar": "المكيّف مطفأ"
+              },
+              "text": {
+                "it": "**Spegnete il condizionatore.**",
+                "en": "**Turn off the air conditioning.**",
+                "es": "**Apagad el aire acondicionado.**",
+                "fr": "**Éteignez la climatisation.**",
+                "de": "**Schalten Sie die Klimaanlage aus.**",
+                "pt": "**Desliguem o ar condicionado.**",
+                "zh": "**请关掉空调。**",
+                "ja": "**エアコンを消してください。**",
+                "ar": "**أطفئوا المكيّف.**"
+              }
+            },
+            {
+              "id": "fridge",
+              "title": {
+                "it": "Frigobar",
+                "en": "Minibar",
+                "es": "Minibar",
+                "fr": "Minibar",
+                "de": "Minibar",
+                "pt": "Minibar",
+                "zh": "小冰箱",
+                "ja": "ミニバー",
+                "ar": "الثلاجة الصغيرة"
+              },
+              "text": {
+                "it": "Se avete usato il **frigobar**, integrate il pagamento.",
+                "en": "If you used the **minibar**, please add it to your payment.",
+                "es": "Si habéis usado el **minibar**, añadid el pago.",
+                "fr": "Si vous avez utilisé le **minibar**, ajoutez le règlement.",
+                "de": "Wenn Sie die **Minibar** benutzt haben, begleichen Sie den Betrag.",
+                "pt": "Se usaram o **minibar**, acrescentem o pagamento.",
+                "zh": "如果用过**小冰箱**，请补上费用。",
+                "ja": "**ミニバー**を使った場合は、その分をお支払いください。",
+                "ar": "إذا استخدمتم **الثلاجة الصغيرة**، أضيفوا المبلغ إلى الدفع."
+              }
+            },
+            {
+              "id": "keys",
+              "title": {
+                "it": "Chiavi sul tavolo",
+                "en": "Keys on the table",
+                "es": "Llaves sobre la mesa",
+                "fr": "Clés sur la table",
+                "de": "Schlüssel auf dem Tisch",
+                "pt": "Chaves em cima da mesa",
+                "zh": "钥匙放在桌上",
+                "ja": "鍵はテーブルの上",
+                "ar": "المفاتيح على الطاولة"
+              },
+              "text": {
+                "it": "Lasciate le **chiavi sul tavolo** e chiudete la porta uscendo.",
+                "en": "Leave the **keys on the table** and close the door as you go.",
+                "es": "Dejad las **llaves sobre la mesa** y cerrad la puerta al salir.",
+                "fr": "Laissez les **clés sur la table** et fermez la porte en sortant.",
+                "de": "Lassen Sie die **Schlüssel auf dem Tisch** und schließen Sie die Tür beim Gehen.",
+                "pt": "Deixem as **chaves em cima da mesa** e fechem a porta ao sair.",
+                "zh": "把**钥匙留在桌上**，出门时关好门。",
+                "ja": "**鍵をテーブルの上に置き**、出るときにドアを閉めてください。",
+                "ar": "اتركوا **المفاتيح على الطاولة** وأغلقوا الباب عند الخروج."
+              }
+            }
+          ]
+        },
+        {
+          "type": "closing",
+          "text": {
+            "it": "Grazie per aver scelto Cozy Domo!",
+            "en": "Thank you for choosing Cozy Domo!",
+            "es": "¡Gracias por elegir Cozy Domo!",
+            "fr": "Merci d'avoir choisi Cozy Domo !",
+            "de": "Danke, dass Sie Cozy Domo gewählt haben!",
+            "pt": "Obrigado por terem escolhido a Cozy Domo!",
+            "zh": "感谢选择 Cozy Domo！",
+            "ja": "Cozy Domo をお選びいただきありがとうございます！",
+            "ar": "شكرًا لاختياركم Cozy Domo!"
+          }
+        }
+      ]
     },
     {
       "id": "contacts",

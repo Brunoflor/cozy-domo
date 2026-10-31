@@ -15,6 +15,8 @@
     openId: null,
     triggerId: null,
   };
+  var taxMemory = null;
+  var CHECK_KEY = "cozy-domo-checkout";
 
   function svg(paths) {
     return (
@@ -112,6 +114,7 @@
     if (section.type === "directions") return false;
     if (section.type === "places") return !section.items || section.items.length === 0;
     if (section.type === "notes") return !section.paragraphs || section.paragraphs.length === 0;
+    if (section.type === "guide") return !section.blocks || section.blocks.length === 0;
     return true;
   }
 
@@ -403,6 +406,27 @@
     return fragment;
   }
 
+  function renderPlaceCard(place) {
+    var item = document.createElement("li");
+    item.className = "place";
+    var name = document.createElement("h3");
+    name.className = "place-name";
+    name.textContent = text(place.name);
+    var address = document.createElement("p");
+    address.className = "place-address";
+    address.textContent = text(place.address);
+    var description = document.createElement("p");
+    description.className = "place-text";
+    appendRich(description, place.text);
+    item.appendChild(name);
+    item.appendChild(address);
+    item.appendChild(description);
+    item.appendChild(
+      mapsLink(place.mapsUrl, t("openMaps"), text(place.name) + ", " + t("newTab"))
+    );
+    return item;
+  }
+
   function renderPlaces(section) {
     var fragment = document.createDocumentFragment();
     if (section.notice) {
@@ -417,24 +441,7 @@
     var list = document.createElement("ul");
     list.className = "places";
     (section.items || []).forEach(function (place) {
-      var item = document.createElement("li");
-      item.className = "place";
-      var name = document.createElement("h3");
-      name.className = "place-name";
-      name.textContent = text(place.name);
-      var address = document.createElement("p");
-      address.className = "place-address";
-      address.textContent = text(place.address);
-      var description = document.createElement("p");
-      description.className = "place-text";
-      description.textContent = text(place.text);
-      item.appendChild(name);
-      item.appendChild(address);
-      item.appendChild(description);
-      item.appendChild(
-        mapsLink(place.mapsUrl, t("openMaps"), text(place.name) + ", " + t("newTab"))
-      );
-      list.appendChild(item);
+      list.appendChild(renderPlaceCard(place));
     });
     fragment.appendChild(list);
     return fragment;
@@ -451,11 +458,417 @@
     return wrap;
   }
 
+  function appendRich(el, value) {
+    var raw = text(value);
+    raw.split("**").forEach(function (part, index) {
+      if (!part) return;
+      if (index % 2 === 1) {
+        var strong = document.createElement("strong");
+        strong.textContent = part;
+        el.appendChild(strong);
+      } else {
+        el.appendChild(document.createTextNode(part));
+      }
+    });
+  }
+
+  function showToast(message) {
+    var toast = document.getElementById("toast");
+    if (!toast) {
+      toast = document.createElement("p");
+      toast.id = "toast";
+      toast.className = "toast";
+      toast.setAttribute("role", "status");
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.hidden = false;
+    window.clearTimeout(showToast.timer);
+    showToast.timer = window.setTimeout(function () {
+      toast.hidden = true;
+    }, 1600);
+  }
+
+  function copyText(value) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(value);
+    }
+    return new Promise(function (resolve, reject) {
+      var area = document.createElement("textarea");
+      area.value = value;
+      area.setAttribute("readonly", "");
+      area.style.position = "fixed";
+      area.style.insetInlineStart = "-999px";
+      document.body.appendChild(area);
+      area.select();
+      try {
+        document.execCommand("copy") ? resolve() : reject();
+      } catch (err) {
+        reject(err);
+      }
+      area.remove();
+    });
+  }
+
+  function renderPhoto(src, alt) {
+    var img = document.createElement("img");
+    img.className = "guide-photo";
+    img.src = asset(src);
+    img.alt = text(alt);
+    img.decoding = "async";
+    img.loading = "lazy";
+    return img;
+  }
+
+  function renderGuideBlock(block) {
+    if (!block || !block.type) return null;
+    if (block.type === "time") return renderTime(block);
+    if (block.type === "text") return renderGuideText(block);
+    if (block.type === "steps") return renderSteps(block);
+    if (block.type === "photo") return renderPhoto(block.src, block.alt);
+    if (block.type === "code") return renderCode(block);
+    if (block.type === "notice") return renderNotice(block);
+    if (block.type === "buttons") return renderButtons(block);
+    if (block.type === "taxcalc") return renderTax(block);
+    if (block.type === "place") return renderGuidePlace(block);
+    if (block.type === "checklist") return renderChecklist(block);
+    if (block.type === "faq") return renderFaq(block);
+    if (block.type === "closing") return renderClosing(block);
+    return null;
+  }
+
+  function renderTime(block) {
+    var card = document.createElement("section");
+    card.className = "time-card";
+    var label = document.createElement("p");
+    label.className = "time-label";
+    label.textContent = text(block.label);
+    var value = document.createElement("p");
+    value.className = "time-value";
+    value.textContent = text(block.value);
+    card.appendChild(label);
+    card.appendChild(value);
+    return card;
+  }
+
+  function renderGuideText(block) {
+    var p = document.createElement("p");
+    p.className = "guide-text";
+    appendRich(p, block.body);
+    return p;
+  }
+
+  function renderSteps(block) {
+    var wrap = document.createElement("section");
+    wrap.className = "steps-block";
+    if (block.title) {
+      var heading = document.createElement("h3");
+      heading.className = "block-title";
+      heading.textContent = text(block.title);
+      wrap.appendChild(heading);
+    }
+    var list = document.createElement("ol");
+    list.className = "steps";
+    (block.items || []).forEach(function (step, index) {
+      var item = document.createElement("li");
+      item.className = "step";
+      var num = document.createElement("span");
+      num.className = "step-num";
+      num.textContent = String(index + 1);
+      var body = document.createElement("div");
+      var copy = document.createElement("p");
+      appendRich(copy, step.text);
+      body.appendChild(copy);
+      if (step.photo) body.appendChild(renderPhoto(step.photo, step.alt));
+      item.appendChild(num);
+      item.appendChild(body);
+      list.appendChild(item);
+    });
+    wrap.appendChild(list);
+    return wrap;
+  }
+
+  function renderCode(block) {
+    var card = document.createElement("section");
+    card.className = "code-card";
+    var label = document.createElement("p");
+    label.className = "code-label";
+    label.textContent = text(block.label);
+    var value = document.createElement("p");
+    value.className = "code-value";
+    value.textContent = String(block.code || "");
+    var button = document.createElement("button");
+    button.type = "button";
+    button.className = "code-copy";
+    button.textContent = t("copyHint");
+    button.addEventListener("click", function () {
+      copyText(String(block.code || "")).then(function () {
+        showToast(t("copied"));
+      }).catch(function () {});
+    });
+    card.appendChild(label);
+    card.appendChild(value);
+    card.appendChild(button);
+    if (block.note) {
+      var note = document.createElement("p");
+      note.className = "code-note";
+      appendRich(note, block.note);
+      card.appendChild(note);
+    }
+    return card;
+  }
+
+  function renderNotice(block) {
+    var aside = document.createElement("aside");
+    aside.className = "notice";
+    aside.appendChild(icon("info", "notice-icon"));
+    var copy = document.createElement("div");
+    if (block.title) {
+      var heading = document.createElement("h3");
+      heading.className = "notice-title";
+      heading.textContent = text(block.title);
+      copy.appendChild(heading);
+    }
+    var note = document.createElement("p");
+    appendRich(note, block.body);
+    copy.appendChild(note);
+    aside.appendChild(copy);
+    return aside;
+  }
+
+  function renderButtons(block) {
+    var wrap = document.createElement("div");
+    wrap.className = "guide-actions";
+    (block.items || []).forEach(function (item) {
+      var link = document.createElement("a");
+      link.className = "btn";
+      if (item.kind === "whatsapp") {
+        link.href = "https://wa.me/" + item.phone + "?text=" + encodeURIComponent(text(item.message));
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+      } else {
+        link.href = item.href;
+      }
+      var label = document.createElement("span");
+      label.textContent = text(item.label);
+      link.appendChild(label);
+      if (item.kind === "tel") link.appendChild(icon("phone", "btn-icon"));
+      wrap.appendChild(link);
+    });
+    return wrap;
+  }
+
+  function renderTax(block) {
+    var rate = Number(block.rate) || 0;
+    if (!taxMemory) {
+      taxMemory = {
+        guests: block.guests || 2,
+        nights: block.nights || 2,
+      };
+    }
+    var card = document.createElement("section");
+    card.className = "tax";
+    var total = document.createElement("p");
+    total.className = "tax-total";
+
+    function clamp(name, delta, min, max) {
+      taxMemory[name] = Math.min(max, Math.max(min, taxMemory[name] + delta));
+    }
+
+    function row(name, min, max) {
+      var line = document.createElement("div");
+      line.className = "tax-row";
+      var label = document.createElement("span");
+      label.textContent = t(name);
+      var controls = document.createElement("div");
+      controls.className = "stepper";
+      var down = document.createElement("button");
+      down.type = "button";
+      down.textContent = "−";
+      down.setAttribute("aria-label", t("less") + " " + t(name));
+      var count = document.createElement("span");
+      count.className = "stepper-value";
+      var up = document.createElement("button");
+      up.type = "button";
+      up.textContent = "+";
+      up.setAttribute("aria-label", t("more") + " " + t(name));
+      function paint() {
+        count.textContent = String(taxMemory[name]);
+        down.disabled = taxMemory[name] <= min;
+        up.disabled = taxMemory[name] >= max;
+        var amount = taxMemory.guests * taxMemory.nights * rate;
+        total.textContent = t("totalLabel") + " " + amount + " €";
+      }
+      down.addEventListener("click", function () {
+        clamp(name, -1, min, max);
+        paintAll();
+      });
+      up.addEventListener("click", function () {
+        clamp(name, 1, min, max);
+        paintAll();
+      });
+      controls.appendChild(down);
+      controls.appendChild(count);
+      controls.appendChild(up);
+      line.appendChild(label);
+      line.appendChild(controls);
+      line.paint = paint;
+      return line;
+    }
+
+    var guests = row("guests", 1, 12);
+    var nights = row("nights", 1, 30);
+    function paintAll() {
+      guests.paint();
+      nights.paint();
+    }
+    card.appendChild(guests);
+    card.appendChild(nights);
+    card.appendChild(total);
+    paintAll();
+    return card;
+  }
+
+  function renderGuidePlace(block) {
+    var list = document.createElement("ul");
+    list.className = "places";
+    list.appendChild(renderPlaceCard(block));
+    return list;
+  }
+
+  function readChecks() {
+    try {
+      var raw = JSON.parse(localStorage.getItem(CHECK_KEY));
+      return raw && typeof raw === "object" ? raw : {};
+    } catch (err) {
+      return {};
+    }
+  }
+
+  function renderChecklist(block) {
+    var wrap = document.createElement("section");
+    wrap.className = "checks-block";
+    var heading = document.createElement("h3");
+    heading.className = "block-title";
+    heading.textContent = text(block.title);
+    var track = document.createElement("div");
+    track.className = "progress-track";
+    var bar = document.createElement("div");
+    bar.className = "progress-bar";
+    track.appendChild(bar);
+    var status = document.createElement("p");
+    status.className = "progress-label";
+    status.setAttribute("aria-live", "polite");
+    var list = document.createElement("div");
+    list.className = "checks";
+    var saved = readChecks();
+    var boxes = [];
+    (block.items || []).forEach(function (item) {
+      var row = document.createElement("label");
+      row.className = "check";
+      var input = document.createElement("input");
+      input.type = "checkbox";
+      input.checked = !!saved[item.id];
+      var copy = document.createElement("span");
+      var title = document.createElement("span");
+      title.className = "check-title";
+      title.textContent = text(item.title);
+      var detail = document.createElement("span");
+      detail.className = "check-text";
+      appendRich(detail, item.text);
+      copy.appendChild(title);
+      copy.appendChild(detail);
+      row.appendChild(input);
+      row.appendChild(copy);
+      list.appendChild(row);
+      boxes.push({ id: item.id, input: input, row: row });
+    });
+    var done = document.createElement("p");
+    done.className = "check-done";
+    done.hidden = true;
+    done.textContent = text(block.done);
+    var reset = document.createElement("button");
+    reset.type = "button";
+    reset.className = "check-reset";
+    reset.textContent = t("reset");
+
+    function persist() {
+      var map = {};
+      var count = 0;
+      boxes.forEach(function (box) {
+        map[box.id] = box.input.checked;
+        box.row.classList.toggle("is-done", box.input.checked);
+        if (box.input.checked) count += 1;
+      });
+      try {
+        localStorage.setItem(CHECK_KEY, JSON.stringify(map));
+      } catch (err) {
+        /* ignore quota / private mode */
+      }
+      var total = boxes.length;
+      status.textContent = t("progress").replace("{done}", String(count)).replace("{total}", String(total));
+      bar.style.width = (total ? Math.round((count / total) * 100) : 0) + "%";
+      done.hidden = count !== total || total === 0;
+    }
+
+    boxes.forEach(function (box) {
+      box.input.addEventListener("change", persist);
+    });
+    reset.addEventListener("click", function () {
+      boxes.forEach(function (box) {
+        box.input.checked = false;
+      });
+      persist();
+    });
+    wrap.appendChild(heading);
+    wrap.appendChild(status);
+    wrap.appendChild(track);
+    wrap.appendChild(list);
+    wrap.appendChild(done);
+    wrap.appendChild(reset);
+    persist();
+    return wrap;
+  }
+
+  function renderFaq(block) {
+    var wrap = document.createElement("div");
+    wrap.className = "faq";
+    (block.items || []).forEach(function (item) {
+      var details = document.createElement("details");
+      var summary = document.createElement("summary");
+      summary.textContent = text(item.q);
+      var answer = document.createElement("p");
+      appendRich(answer, item.a);
+      details.appendChild(summary);
+      details.appendChild(answer);
+      wrap.appendChild(details);
+    });
+    return wrap;
+  }
+
+  function renderClosing(block) {
+    var p = document.createElement("p");
+    p.className = "closing";
+    appendRich(p, block.text);
+    return p;
+  }
+
+  function renderGuide(section) {
+    var wrap = document.createElement("div");
+    wrap.className = "guide";
+    (section.blocks || []).forEach(function (block) {
+      var node = renderGuideBlock(block);
+      if (node) wrap.appendChild(node);
+    });
+    return wrap;
+  }
+
   function renderSectionBody(section) {
     if (isComingSoon(section)) return renderSoon(section);
     if (section.type === "directions") return renderDirections(section);
     if (section.type === "places") return renderPlaces(section);
     if (section.type === "notes") return renderNotes(section);
+    if (section.type === "guide") return renderGuide(section);
     return renderSoon(section);
   }
 
