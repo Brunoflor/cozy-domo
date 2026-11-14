@@ -1208,6 +1208,19 @@ html.intro-seen .intro {
   .lang-option:hover {
     background: rgba(28, 27, 26, 0.06);
   }
+
+  .code-copy:hover,
+  .check-reset:hover {
+    color: var(--orange-deep);
+  }
+
+  .stepper button:hover:not(:disabled) {
+    background: var(--orange-deep);
+  }
+
+  .check:hover {
+    border-color: #7d8f5a;
+  }
 }
 
 .tile:active .tile-face,
@@ -1271,6 +1284,91 @@ html.intro-seen .intro {
   .player {
     width: 4rem;
     height: 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .wrap {
+    width: min(100% - 4rem, 54rem);
+    padding-top: 2.5rem;
+    padding-bottom: 3rem;
+  }
+
+  .logo-lockup picture {
+    width: 24rem;
+  }
+
+  .grid {
+    max-width: 46rem;
+    margin-inline: auto;
+    gap: 1.5rem 1.35rem;
+  }
+
+  .tile-label {
+    font-size: 0.95rem;
+  }
+
+  .player {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+
+  .player-disc {
+    max-width: 4.5rem;
+    max-height: 4.5rem;
+  }
+
+  .sheet[open] {
+    width: min(52.5rem, calc(100vw - 5rem));
+  }
+
+  .sheet-bar {
+    padding-inline: 1.6rem;
+  }
+
+  .sheet-title {
+    font-size: 2rem;
+  }
+
+  .sheet-body {
+    padding: 1.2rem 1.7rem 1.8rem;
+  }
+
+  .guide-links .tile-face {
+    width: min(100%, 8.5rem);
+  }
+
+  .guide-link-grid {
+    justify-items: center;
+  }
+
+  .guide-actions {
+    max-width: 28rem;
+  }
+
+  .step:has(.guide-photo) {
+    grid-template-columns: 2.25rem minmax(0, 1fr) minmax(14rem, 20rem);
+    align-items: start;
+    column-gap: 1rem;
+  }
+
+  .step:has(.guide-photo) > div {
+    display: contents;
+  }
+
+  .step:has(.guide-photo) .guide-photo {
+    grid-column: 3;
+    grid-row: 1;
+    margin-top: 0;
+    max-height: 16rem;
+    width: 100%;
+    object-fit: contain;
+    justify-self: end;
+  }
+
+  .guide-photo {
+    max-height: 22rem;
+    object-fit: contain;
   }
 }
 
