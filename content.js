@@ -365,6 +365,21 @@ window.COZY_CONTENT = {
           "value": "15:00"
         },
         {
+          "type": "shortcuts",
+          "title": {
+            "it": "Prima di arrivare",
+            "en": "Before you arrive",
+            "es": "Antes de llegar",
+            "fr": "Avant d'arriver",
+            "de": "Vor der Ankunft",
+            "pt": "Antes de chegar",
+            "zh": "到达之前",
+            "ja": "到着の前に",
+            "ar": "قبل الوصول"
+          },
+          "ids": ["location", "parking", "amenities"]
+        },
+        {
           "type": "text",
           "body": {
             "it": "Potete arrivare **a qualsiasi ora**, anche di notte: il check-in è **autonomo**.",
@@ -630,6 +645,7 @@ window.COZY_CONTENT = {
     },
     {
       "id": "location",
+      "home": false,
       "icon": "pin",
       "title": {
         "it": "Posizione",
@@ -729,6 +745,7 @@ window.COZY_CONTENT = {
     },
     {
       "id": "parking",
+      "home": false,
       "icon": "parking",
       "title": {
         "it": "Parcheggi",
@@ -857,6 +874,7 @@ window.COZY_CONTENT = {
     },
     {
       "id": "amenities",
+      "home": false,
       "icon": "sofa",
       "title": {
         "it": "Servizi",

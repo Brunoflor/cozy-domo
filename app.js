@@ -14,6 +14,7 @@
     lang: "en",
     openId: null,
     triggerId: null,
+    stack: [],
   };
   var taxMemory = null;
   var CHECK_KEY = "cozy-domo-checkout";
@@ -297,6 +298,7 @@
     list.className = "grid";
     list.setAttribute("aria-label", t("sectionsLabel"));
     content.sections.forEach(function (section) {
+      if (section.home === false) return;
       var item = document.createElement("li");
       var button = document.createElement("button");
       button.type = "button";
@@ -304,7 +306,8 @@
       button.dataset.section = section.id;
       button.setAttribute("aria-haspopup", "dialog");
       button.setAttribute("aria-controls", "sheet");
-      button.setAttribute("aria-expanded", state.openId === section.id ? "true" : "false");
+      var rootId = state.stack.length ? state.stack[0] : state.openId;
+      button.setAttribute("aria-expanded", button.dataset.section === rootId ? "true" : "false");
       var face = document.createElement("span");
       face.className = "tile-face";
       face.appendChild(tileGlyph(section.icon));
@@ -534,6 +537,7 @@
     if (block.type === "checklist") return renderChecklist(block);
     if (block.type === "faq") return renderFaq(block);
     if (block.type === "closing") return renderClosing(block);
+    if (block.type === "shortcuts") return renderShortcuts(block);
     return null;
   }
 
@@ -846,6 +850,52 @@
     return wrap;
   }
 
+  function renderShortcuts(block) {
+    var wrap = document.createElement("section");
+    wrap.className = "guide-links";
+    if (block.title) {
+      var heading = document.createElement("h3");
+      heading.className = "block-title";
+      heading.textContent = text(block.title);
+      wrap.appendChild(heading);
+    }
+    var list = document.createElement("ul");
+    list.className = "guide-link-grid";
+    (block.ids || []).forEach(function (id) {
+      var section = null;
+      content.sections.forEach(function (item) {
+        if (item.id === id) section = item;
+      });
+      if (!section) return;
+      var item = document.createElement("li");
+      var button = document.createElement("button");
+      button.type = "button";
+      button.className = "tile";
+      button.dataset.section = section.id;
+      var face = document.createElement("span");
+      face.className = "tile-face";
+      face.appendChild(tileGlyph(section.icon));
+      button.appendChild(face);
+      var label = document.createElement("span");
+      label.className = "tile-label";
+      label.textContent = text(section.title);
+      button.appendChild(label);
+      if (isComingSoon(section)) {
+        var soon = document.createElement("span");
+        soon.className = "visually-hidden";
+        soon.textContent = t("comingSoon");
+        button.appendChild(soon);
+      }
+      button.addEventListener("click", function () {
+        openNested(section.id);
+      });
+      item.appendChild(button);
+      list.appendChild(item);
+    });
+    wrap.appendChild(list);
+    return wrap;
+  }
+
   function renderClosing(block) {
     var p = document.createElement("p");
     p.className = "closing";
@@ -1037,18 +1087,17 @@
   }
 
   function syncExpanded() {
-    var buttons = document.querySelectorAll(".tile");
+    var rootId = state.stack.length ? state.stack[0] : "";
+    var buttons = document.querySelectorAll("#sections .tile");
     buttons.forEach(function (button) {
-      button.setAttribute(
-        "aria-expanded",
-        button.dataset.section === state.openId ? "true" : "false"
-      );
+      button.setAttribute("aria-expanded", button.dataset.section === rootId ? "true" : "false");
     });
   }
 
   function openSection(id) {
-    state.openId = id;
     state.triggerId = id;
+    state.stack = [id];
+    state.openId = id;
     syncExpanded();
     renderSheet();
     var dialog = document.getElementById("sheet");
@@ -1056,13 +1105,35 @@
     document.getElementById("sheet-back").focus();
   }
 
+  function openNested(id) {
+    state.stack.push(id);
+    state.openId = id;
+    renderSheet();
+    document.getElementById("sheet-back").focus();
+  }
+
+  function goBack() {
+    var dialog = document.getElementById("sheet");
+    if (state.stack.length > 1) {
+      var left = state.stack.pop();
+      state.openId = state.stack[state.stack.length - 1];
+      renderSheet();
+      var shortcut = document.querySelector('#sheet-body [data-section="' + left + '"]');
+      if (shortcut) shortcut.focus();
+      else document.getElementById("sheet-back").focus();
+      return;
+    }
+    dialog.close();
+  }
+
   function onClose() {
-    var id = state.triggerId;
+    var id = state.stack.length ? state.stack[0] : state.triggerId;
+    state.stack = [];
     state.openId = null;
     syncExpanded();
     renderSheet();
     window.setTimeout(function () {
-      var button = document.querySelector('[data-section="' + id + '"]');
+      var button = document.querySelector('#sections [data-section="' + id + '"]');
       if (button) button.focus();
     }, 0);
   }
@@ -1211,7 +1282,7 @@
   function bind() {
     var dialog = document.getElementById("sheet");
     document.getElementById("sheet-back").addEventListener("click", function () {
-      dialog.close();
+      goBack();
     });
     dialog.addEventListener("click", function (event) {
       if (event.target === dialog) dialog.close();
