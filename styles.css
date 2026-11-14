@@ -1289,7 +1289,7 @@ html.intro-seen .intro {
 
 @media (min-width: 1024px) {
   .wrap {
-    width: min(100% - 4rem, 54rem);
+    width: min(100% - 3rem, 64rem);
     padding-top: 2.5rem;
     padding-bottom: 3rem;
   }
@@ -1299,9 +1299,19 @@ html.intro-seen .intro {
   }
 
   .grid {
-    max-width: 46rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: none;
+    width: 100%;
     margin-inline: auto;
-    gap: 1.5rem 1.35rem;
+    gap: 2rem 2.25rem;
+  }
+
+  .grid li {
+    flex: 0 0 calc((100% - 3 * 2.25rem) / 4);
+    width: calc((100% - 3 * 2.25rem) / 4);
+    grid-column: auto;
   }
 
   .tile-label {
@@ -1369,6 +1379,55 @@ html.intro-seen .intro {
   .guide-photo {
     max-height: 22rem;
     object-fit: contain;
+  }
+}
+
+@media (min-width: 1280px) {
+  .wrap {
+    width: min(100% - 4rem, 78rem);
+  }
+
+  .grid {
+    gap: 2.25rem 2.5rem;
+  }
+
+  .grid li {
+    flex-basis: calc((100% - 4 * 2.5rem) / 5);
+    width: calc((100% - 4 * 2.5rem) / 5);
+  }
+}
+
+@media (min-width: 1440px) {
+  .wrap {
+    width: min(100% - 4rem, 86rem);
+  }
+
+  .grid {
+    gap: 2.5rem 2.75rem;
+  }
+
+  .grid li {
+    flex-basis: calc((100% - 4 * 2.75rem) / 5);
+    width: calc((100% - 4 * 2.75rem) / 5);
+  }
+
+  .logo-lockup picture {
+    width: 26rem;
+  }
+}
+
+@media (min-width: 1920px) {
+  .wrap {
+    width: min(100% - 6rem, 90rem);
+  }
+
+  .grid {
+    gap: 2.75rem 3rem;
+  }
+
+  .grid li {
+    flex-basis: calc((100% - 4 * 3rem) / 5);
+    width: calc((100% - 4 * 3rem) / 5);
   }
 }
 
