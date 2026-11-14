@@ -330,8 +330,24 @@ window.COZY_CONTENT = {
         "ja": "ようこそ",
         "ar": "أهلاً بكم"
       },
-      "type": "notes",
-      "paragraphs": []
+      "type": "guide",
+      "blocks": [
+        {
+          "type": "shortcuts",
+          "title": {
+            "it": "Da sapere",
+            "en": "Good to know",
+            "es": "Conviene saber",
+            "fr": "À savoir",
+            "de": "Gut zu wissen",
+            "pt": "A saber",
+            "zh": "须知",
+            "ja": "知っておくこと",
+            "ar": "للعلم"
+          },
+          "ids": ["rules", "activities", "info"]
+        }
+      ]
     },
     {
       "id": "checkin",
@@ -363,6 +379,21 @@ window.COZY_CONTENT = {
             "ar": "تسجيل وصول ذاتي"
           },
           "value": "15:00"
+        },
+        {
+          "type": "shortcuts",
+          "title": {
+            "it": "Prima di arrivare",
+            "en": "Before you arrive",
+            "es": "Antes de llegar",
+            "fr": "Avant d'arriver",
+            "de": "Vor der Ankunft",
+            "pt": "Antes de chegar",
+            "zh": "到达之前",
+            "ja": "到着の前に",
+            "ar": "قبل الوصول"
+          },
+          "ids": ["location", "parking", "amenities"]
         },
         {
           "type": "text",
@@ -630,6 +661,7 @@ window.COZY_CONTENT = {
     },
     {
       "id": "location",
+      "home": false,
       "icon": "pin",
       "title": {
         "it": "Posizione",
@@ -729,6 +761,7 @@ window.COZY_CONTENT = {
     },
     {
       "id": "parking",
+      "home": false,
       "icon": "parking",
       "title": {
         "it": "Parcheggi",
@@ -823,6 +856,7 @@ window.COZY_CONTENT = {
     },
     {
       "id": "rules",
+      "home": false,
       "icon": "rules",
       "title": {
         "it": "Regole",
@@ -857,6 +891,7 @@ window.COZY_CONTENT = {
     },
     {
       "id": "amenities",
+      "home": false,
       "icon": "sofa",
       "title": {
         "it": "Servizi",
@@ -874,6 +909,7 @@ window.COZY_CONTENT = {
     },
     {
       "id": "activities",
+      "home": false,
       "icon": "compass",
       "title": {
         "it": "Attività",
@@ -891,6 +927,7 @@ window.COZY_CONTENT = {
     },
     {
       "id": "info",
+      "home": false,
       "icon": "info",
       "title": {
         "it": "Info",

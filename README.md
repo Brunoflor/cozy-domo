@@ -5,11 +5,11 @@
 A single, mobile-friendly page that gives guests everything they need during their stay. No paper binders, no repeated questions on chat: just tap an icon and find the answer.
 
 ## How it works
-The page shows a three-column grid of icons. A short line above the grid says “Tap the icons”. Tapping an icon opens that topic. Topics that are not filled in yet have a small orange dot on the tile.
+The page shows a three-column grid of icons. Tapping an icon opens that topic. Check-in and check-out are filled in. Location, parking, and amenities open from inside Check-in. House rules, things to do, and info open from inside Welcome.
 
 The guide is in Italian, English, Spanish, French, German, Portuguese, Simplified Chinese, Japanese, and Arabic. The first visit follows the browser’s language list and otherwise uses English. The choice is remembered. Arabic is laid out right to left.
 
-Location and parking already have details. Every other topic stays on “Coming soon” until it is filled in.
+Location and parking already have details. Amenities, house rules, things to do, info, and every other empty topic, stay on “Coming soon” until they are filled in.
 
 ## Why
 - Guests get answers instantly, at any hour
